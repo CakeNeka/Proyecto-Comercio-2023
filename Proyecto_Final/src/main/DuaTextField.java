@@ -28,4 +28,9 @@ public class DuaTextField extends JTextField implements DuaInputField{
     public String getField() {
         return getText();
     }
+    
+    @Override
+    public void setField(Object value) {
+        setText((String)value);
+    }
 }

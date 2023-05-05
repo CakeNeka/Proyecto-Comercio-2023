@@ -23,4 +23,9 @@ public class DuaSpinner extends JSpinner implements DuaInputField {
     public String getField() {
         return getValue().toString();
     }
+    
+    @Override
+    public void setField(Object value) {
+        setValue(value);
+    }
 }
