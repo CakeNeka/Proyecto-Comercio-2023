@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class MainWindow extends javax.swing.JFrame {
 
+    // 
     private final boolean[] requiredFields = {
         true,true,true,true,true,false,false,true,true,false,true,false,false,false,      //15 (ultimo > pais transac)
         false,true,true,true,true,false,true,false,true,true,false,true,true,   //14    (ultimo > tipo cambio)
@@ -27,9 +29,8 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         inputFields = new ArrayList<>();
         initComponents();
-        addInputFields();
-        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-        System.out.println(inputFields.size()+ " " + requiredFields.length);
+        addInputFields();                                                      // Añade todos los campos de entrada de datos a la lista inputFields
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);   // Aumenta velocidad vertical de la barra de desplazamiento
     }
 
     private void addInputFields() {
@@ -105,7 +106,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        generateDocumentationBtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -253,11 +254,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(216, 216, 222));
 
-        jButton1.setText("<html><p style=\"text-align: center;\">Generar<br>Documentación</p></html>");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        generateDocumentationBtn.setText("<html><p style=\"text-align: center;\">Generar<br>Documentación</p></html>");
+        generateDocumentationBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        generateDocumentationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                generateDocumentationBtnActionPerformed(evt);
             }
         });
 
@@ -267,14 +268,14 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
 
@@ -1074,20 +1075,30 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            HtmlWriter.generateDocuments(getStringFields(), "");
-        } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+    private void generateDocumentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDocumentationBtnActionPerformed
+        List<String> stringFields = getStringFields();
+        if (validateFields(stringFields)) {
+            try {
+                HtmlWriter.generateDocuments(stringFields, "");
+            } catch (IOException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Se deben de rellenar todos los campos obligatorios");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_generateDocumentationBtnActionPerformed
 
     private List<String> getStringFields() {
         List<String> values = new ArrayList<>();
-        for (DuaInputField inputField : inputFields) {
-            values.add(inputField.getField());
-        }
+        inputFields.stream().forEach(inf -> values.add(inf.getField()));
+//      for (DuaInputField inputField : inputFields) {
+//          values.add(inputField.getField());
+//      }
         return values;
+    }
+    
+    private boolean validateFields(List<String> fields) {
+        return fields.stream().noneMatch(s -> s == null || s.isEmpty() || s.isBlank());
     }
     
     public static void main(String args[]) {
@@ -1135,10 +1146,10 @@ public class MainWindow extends javax.swing.JFrame {
     private main.DuaTextField exportadorNombreTf;
     private main.DuaTextField formulariosTf;
     private main.DuaTextField garantiaTf;
+    private javax.swing.JButton generateDocumentationBtn;
     private main.DuaTextField idDepositoTf;
     private main.DuaTextField idNacMedTransActFronteraTf;
     private main.DuaTextField idNacMedTransPartidaTf;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -9,6 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Genera la documentación en formato html
+ * 
+ * @author Neka
+ */
 public final class HtmlWriter {
 
     private static final String TEMPLATE_PATH = "src/resources/DuaExportacionTemplate.html";

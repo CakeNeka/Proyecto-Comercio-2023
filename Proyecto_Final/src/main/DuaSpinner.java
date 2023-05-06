@@ -2,11 +2,17 @@ package main;
 
 import javax.swing.JSpinner;
 
+/**
+ * Extensión de la clase JSpinner que implementa los comportamientos
+ * de un campo del dua (obligatoriedad y obtención del valor introducido)
+ * @author Neka
+ */
 public class DuaSpinner extends JSpinner implements DuaInputField {
-    private boolean required = false;
+    private boolean required;
 
     public DuaSpinner() {
         super();
+        required = false;       // será modificado a través del setter
     }    
     
     @Override
