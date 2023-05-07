@@ -1077,7 +1077,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void generateDocumentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDocumentationBtnActionPerformed
         List<String> stringFields = getStringFields();
-        if (validateFields(stringFields)) {
+        if (validateFields()) {
             try {
                 HtmlWriter.generateDocuments(stringFields, "");
             } catch (IOException ex) {
@@ -1090,15 +1090,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     private List<String> getStringFields() {
         List<String> values = new ArrayList<>();
-        inputFields.stream().forEach(inf -> values.add(inf.getField()));
-//      for (DuaInputField inputField : inputFields) {
-//          values.add(inputField.getField());
-//      }
+        inputFields.stream().forEach(i -> values.add(i.getField()));
         return values;
     }
     
-    private boolean validateFields(List<String> fields) {
-        return fields.stream().noneMatch(s -> s == null || s.isEmpty() || s.isBlank());
+    private boolean validateFields() {
+        return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
     }
     
     public static void main(String args[]) {
