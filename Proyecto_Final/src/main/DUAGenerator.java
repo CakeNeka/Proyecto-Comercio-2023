@@ -14,7 +14,7 @@ import java.util.List;
  * 
  * @author Neka
  */
-public final class HtmlWriter {
+public final class DUAGenerator extends TextWriter{
 
     private static final String TEMPLATE_PATH = "src/resources/DuaExportacionTemplate.html";
 
