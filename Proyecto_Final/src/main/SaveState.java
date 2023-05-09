@@ -1,10 +1,10 @@
 package main;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class SaveState {
-    Date dateCreated;
-    int id;
-    List<String> fields;
+    private LocalDateTime dateCreated;
+    private int id;
+    private List<String> fields;
 }

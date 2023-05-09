@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 public class MainWindow extends javax.swing.JFrame {
 
     List<DuaInputField> inputFields;
-    
+    DUAGenerator duaGenerator;
 
     /**
      * Creates new form MainWindow
@@ -20,10 +20,11 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         inputFields = new ArrayList<>();
         initComponents();
-        addInputFields();                                                      // Añade todos los campos de entrada de datos a la lista inputFields
-        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);   // Aumenta velocidad vertical de la barra de desplazamiento
+        addInputFields();                                                     // Añade todos los campos de entrada de datos a la lista inputFields
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);  // Aumenta velocidad vertical de la barra de desplazamiento
+        duaGenerator = new DUAGenerator();
     }
-
+       
     private void addInputFields() {
         inputFields.add(aduanaTf);
         inputFields.add(declaracionTf);
@@ -230,14 +231,15 @@ public class MainWindow extends javax.swing.JFrame {
         calculoTributosSpn = new main.DuaSpinner();
         formulariosTf = new main.DuaTextField();
         jLabel66 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        FileMenu = new javax.swing.JMenu();
+        loadMenuItem = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
+        EditMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setAutoRequestFocus(false);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(216, 216, 222));
@@ -429,6 +431,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel66.setText("Formularios");
 
+        jLabel32.setText("Los campos marcados con * son obligatorios");
+
         javax.swing.GroupLayout duaImportacionPanelLayout = new javax.swing.GroupLayout(duaImportacionPanel);
         duaImportacionPanel.setLayout(duaImportacionPanelLayout);
         duaImportacionPanelLayout.setHorizontalGroup(
@@ -459,18 +463,16 @@ public class MainWindow extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(modoTransporteSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel55)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(valorEstadisticoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(calculoTributosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, duaImportacionPanelLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel55))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(valorEstadisticoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(calculoTributosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel62)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -639,19 +641,6 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addComponent(totalBultosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
                                                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel4)
-                                                    .addComponent(jLabel2))
-                                                .addGap(6, 6, 6)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(aduanaTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
-                                                        .addComponent(jLabel63)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(exportadorNombreTf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(declaracionTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addComponent(jLabel21)
                                                     .addComponent(jLabel19))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -674,7 +663,22 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(idNacMedTransActFronteraTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(divisaImporteTotalTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))))))
+                                                    .addComponent(divisaImporteTotalTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
+                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel1)
+                                                    .addComponent(jLabel4)
+                                                    .addComponent(jLabel2))
+                                                .addGap(6, 6, 6)
+                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel32)
+                                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(aduanaTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
+                                                            .addComponent(jLabel63)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(exportadorNombreTf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(declaracionTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))))))
                                 .addGroup(duaImportacionPanelLayout.createSequentialGroup()
                                     .addComponent(jLabel27)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -691,7 +695,9 @@ public class MainWindow extends javax.swing.JFrame {
         duaImportacionPanelLayout.setVerticalGroup(
             duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(jLabel32)
+                .addGap(18, 18, 18)
                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(aduanaTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -948,23 +954,23 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("DUA Exportación", jPanel2);
 
-        jMenu1.setText("Archivo");
+        FileMenu.setText("Archivo");
 
-        jMenuItem2.setText("Cargar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        loadMenuItem.setText("Cargar");
+        loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                loadMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        FileMenu.add(loadMenuItem);
 
-        jMenuItem1.setText("Guardar");
-        jMenu1.add(jMenuItem1);
+        saveMenuItem.setText("Guardar");
+        FileMenu.add(saveMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(FileMenu);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        EditMenu.setText("Edit");
+        jMenuBar1.add(EditMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -994,18 +1000,19 @@ public class MainWindow extends javax.swing.JFrame {
         List<String> stringFields = getStringFields();
         if (validateFields()) {
             try {
-                DUAGenerator.generateDocuments(stringFields, "");
+                duaGenerator.generateDocuments(stringFields, "");
             } catch (IOException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Se deben de rellenar todos los campos obligatorios");
+            JOptionPane.showMessageDialog(this, "Tienes que rellenar todos los campos obligatorios");
         }
     }//GEN-LAST:event_generateDocumentationBtnActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new SaveLoadWindow().setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
+        SaveLoadWindow slw = new SaveLoadWindow(this);
+        slw.setVisible(true);
+    }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private List<String> getStringFields() {
         List<String> values = new ArrayList<>();
@@ -1015,6 +1022,14 @@ public class MainWindow extends javax.swing.JFrame {
     
     private boolean validateFields() {
         return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
+    }
+    
+    public void updateFields(List<String> ls){
+        if (ls.size() == inputFields.size()) {
+            for (int i = 0; i < inputFields.size(); i++) {
+                inputFields.get(i).setField(ls.get(i));
+            }
+        }
     }
     
     public static void main(String args[]) {
@@ -1034,6 +1049,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu EditMenu;
+    private javax.swing.JMenu FileMenu;
     private main.DuaSpinner aduanaSalidaSpn;
     private main.DuaTextField aduanaTf;
     private main.DuaTextField aduanasDestinoPaisTf;
@@ -1090,6 +1107,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -1129,16 +1147,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private main.DuaTextField listaDeCargaTf;
+    private javax.swing.JMenuItem loadMenuItem;
     private main.DuaSpinner locMercanciasSpn;
     private main.DuaTextField lugarCargaTf;
     private main.DuaTextField lugarFechaTf;
@@ -1161,6 +1176,7 @@ public class MainWindow extends javax.swing.JFrame {
     private main.DuaSpinner precioFacturadoSpn;
     private main.DuaSpinner regimenSpn;
     private main.DuaTextField responsableFinancieroTf;
+    private javax.swing.JMenuItem saveMenuItem;
     private main.DuaTextField tipoCambioTf;
     private main.DuaSpinner totalBultosSpn;
     private main.DuaTextField udsSuplementariasTf;

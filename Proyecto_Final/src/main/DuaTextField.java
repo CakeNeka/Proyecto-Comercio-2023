@@ -17,12 +17,7 @@ public class DuaTextField extends JTextField implements DuaInputField{
     @Override
     public void setRequired(boolean required) {
         this.required = required;
-        
-        if (required) {
-            setText("soy obligatorio");
-        } else {
-            setText("soy opcional");
-        }
+        setText("a");
     }
 
     @Override

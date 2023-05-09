@@ -1,5 +1,5 @@
 package main;
 
-public class TextWriter {
+abstract class TextWriter {
     
 }
