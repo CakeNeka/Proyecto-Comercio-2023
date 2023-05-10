@@ -1,25 +1,26 @@
 package org.cakeneka.components;
 
-import javax.swing.JSpinner;
+import javax.swing.JComboBox;
 
 /**
  * Extensión de la clase JSpinner que implementa los comportamientos
  * de un campo del dua (obligatoriedad y obtención del valor introducido)
  * @author Neka
  */
-public class DuaSpinner extends JSpinner implements DuaInputField {
+public class DuaComboBox extends JComboBox implements DuaInputField{
+
     private boolean required;
 
-    public DuaSpinner() {
+    public DuaComboBox() {
         super();
         required = false;       // será modificado a través del setter
-    }    
+    } 
     
     @Override
     public boolean isRequired() {
         return required;
     }
-    
+
     @Override
     public void setRequired(boolean required) {
         this.required = required;
@@ -27,11 +28,12 @@ public class DuaSpinner extends JSpinner implements DuaInputField {
 
     @Override
     public String getField() {
-        return getValue().toString();
+        return getSelectedItem().toString();
+    }
+
+    @Override
+    public void setField(String value) {  
+        setSelectedItem(value);
     }
     
-    @Override
-    public void setField(String value) {
-        setValue(Integer.parseInt(value));
-    }
 }

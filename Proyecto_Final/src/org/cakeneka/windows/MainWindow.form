@@ -21,6 +21,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -110,10 +113,11 @@
                   <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel33" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -135,7 +139,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/Default_pfp.svg (1).png"/>
+              <Image iconType="3" name="/org/cakeneka/resources/pfp_0.png"/>
             </Property>
           </Properties>
         </Component>
@@ -238,11 +242,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="formulariosTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
@@ -252,318 +251,324 @@
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="exportadorDireccionTf" max="32767" attributes="0"/>
+                                              <Component id="exportadorDireccionTf" pref="213" max="32767" attributes="0"/>
                                               <Component id="exportadorCifTf" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="modoTransporteSpn" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel54" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel55" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="valorEstadisticoTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                                      <Component id="calculoTributosSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lugarFechaTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="aduanasDestinoPaisTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel59" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="garantiaTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="idDepositoTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="aplazamientoPagoTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel52" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel50" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel53" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="certificadosAutorizacionesTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel51" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel47" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="docCargoPrecedenteTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="masaBrutaSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="codPaisOrigenTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="listaDeCargaTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="partidasSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="destinatarioTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="numReferenciaTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paisPrimerDestinoTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="responsableFinancieroTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="pacTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paisTransaccionTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paisExpedicionTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="declaranteRepresentanteTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paisOrigenTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="codPExpedExportTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paisDestinoTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="codPaisDestinoSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="condicionesEntregaTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="tipoCambioTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="modoTransporte2Spn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
                                                       <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Component id="jLabel54" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel55" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
+                                                          <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel36" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="aduanaSalidaSpn" pref="282" max="32767" attributes="0"/>
+                                                          <Component id="locMercanciasSpn" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Component id="valorEstadisticoTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                                  <Component id="calculoTributosSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                              </Group>
+                                                              <Component id="lugarCargaTf" min="-2" pref="281" max="-2" attributes="0"/>
                                                           </Group>
                                                           <Group type="102" attributes="0">
-                                                              <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="lugarFechaTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="aduanasDestinoPaisTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel59" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="garantiaTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="idDepositoTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="aplazamientoPagoTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel52" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel50" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel53" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="certificadosAutorizacionesTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel51" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel47" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="docCargoPrecedenteTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="masaBrutaSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="codPaisOrigenTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="listaDeCargaTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="partidasSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="destinatarioTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="numReferenciaTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="paisPrimerDestinoTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="responsableFinancieroTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="pacTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="paisTransaccionTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="paisExpedicionTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="declaranteRepresentanteTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="paisOrigenTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="codPExpedExportTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="paisDestinoTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="codPaisDestinoSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="condicionesEntregaTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="tipoCambioTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="modoTransporte2Spn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                                              <Group type="102" alignment="1" attributes="0">
-                                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                                      <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="jLabel36" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="aduanaSalidaSpn" pref="282" max="32767" attributes="0"/>
-                                                                      <Component id="locMercanciasSpn" max="32767" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                                      <Group type="102" attributes="0">
-                                                                          <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="lugarCargaTf" min="-2" pref="281" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <Group type="102" attributes="0">
-                                                                          <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="datosFinancierosBancariosTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                  </Group>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="bultosDescMercanciasSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="regimenSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="contingenteTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="udsSuplementariasTf" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="precioFacturadoSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Component id="jLabel58" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="aduanasPasoPrevistasTf" pref="282" max="32767" attributes="0"/>
-                                                                  <Component id="obligadoPrincipalTf" max="32767" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                              <Component id="totalBultosSpn" min="-2" pref="282" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel19" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="idNacMedTransPartidaTf" pref="282" max="32767" attributes="0"/>
-                                                                  <Component id="ctrSpn" max="32767" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="partidaSpn" pref="282" max="32767" attributes="0"/>
-                                                                  <Component id="codMercanciasSpn" max="32767" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="idNacMedTransActFronteraTf" max="32767" attributes="0"/>
-                                                                  <Component id="divisaImporteTotalTf" pref="282" max="32767" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                      <Component id="aduanaTf" max="32767" attributes="0"/>
-                                                                      <Group type="102" alignment="1" attributes="0">
-                                                                          <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="exportadorNombreTf" min="-2" pref="212" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <Component id="declaracionTf" alignment="0" pref="282" max="32767" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
+                                                              <Component id="datosFinancierosBancariosTf" min="-2" pref="282" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                   </Group>
                                               </Group>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="bultosDescMercanciasSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="regimenCb" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="contingenteTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="udsSuplementariasTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="precioFacturadoSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel58" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="aduanasPasoPrevistasTf" pref="282" max="32767" attributes="0"/>
+                                                      <Component id="obligadoPrincipalTf" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="totalBultosSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel19" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="idNacMedTransPartidaTf" pref="282" max="32767" attributes="0"/>
+                                                      <Component id="ctrSpn" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="partidaSpn" pref="282" max="32767" attributes="0"/>
+                                                      <Component id="codMercanciasSpn" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="idNacMedTransActFronteraTf" max="32767" attributes="0"/>
+                                                      <Component id="divisaImporteTotalTf" pref="282" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="aduanaTf" max="32767" attributes="0"/>
+                                                          <Group type="102" alignment="1" attributes="0">
+                                                              <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="exportadorNombreTf" min="-2" pref="212" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Component id="declaracionTf" alignment="0" pref="282" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="naturalezaTransacc1Spn" min="-2" pref="120" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                                   <Component id="naturalezaTransacc2Spn" min="-2" pref="120" max="-2" attributes="0"/>
                                               </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="masaNetaSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                                          <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="masaNetaSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="formulariosTf" min="-2" pref="282" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="modoTransporteSpn" min="-2" pref="282" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -782,7 +787,7 @@
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="regimenSpn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="regimenCb" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1176,166 +1181,155 @@
                         <Property name="text" type="java.lang.String" value="CIF/EORI*"/>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaTextField" name="aduanaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="aduanaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="declaracionTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="declaracionTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="exportadorNombreTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="exportadorNombreTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="exportadorDireccionTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="exportadorDireccionTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="exportadorCifTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="exportadorCifTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="listaDeCargaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="listaDeCargaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="numReferenciaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="numReferenciaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="destinatarioTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="destinatarioTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="responsableFinancieroTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="responsableFinancieroTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="paisPrimerDestinoTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="paisPrimerDestinoTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="paisTransaccionTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="paisTransaccionTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="pacTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="pacTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="declaranteRepresentanteTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="declaranteRepresentanteTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="paisExpedicionTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="paisExpedicionTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="codPExpedExportTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="codPExpedExportTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="paisOrigenTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="paisOrigenTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="paisDestinoTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="paisDestinoTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="idNacMedTransPartidaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="idNacMedTransPartidaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="condicionesEntregaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="condicionesEntregaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="idNacMedTransActFronteraTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="idNacMedTransActFronteraTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="divisaImporteTotalTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="divisaImporteTotalTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="tipoCambioTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="tipoCambioTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="lugarCargaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="lugarCargaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="datosFinancierosBancariosTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="datosFinancierosBancariosTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="codPaisOrigenTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="codPaisOrigenTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="contingenteTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="contingenteTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="docCargoPrecedenteTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="docCargoPrecedenteTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="udsSuplementariasTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="udsSuplementariasTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="certificadosAutorizacionesTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="certificadosAutorizacionesTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="valorEstadisticoTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="valorEstadisticoTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="aplazamientoPagoTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="aplazamientoPagoTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="idDepositoTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="idDepositoTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="obligadoPrincipalTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="obligadoPrincipalTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="aduanasPasoPrevistasTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="aduanasPasoPrevistasTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="garantiaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="garantiaTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="aduanasDestinoPaisTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="aduanasDestinoPaisTf">
                     </Component>
-                    <Component class="main.DuaTextField" name="lugarFechaTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="lugarFechaTf">
                     </Component>
-                    <Component class="main.DuaSpinner" name="partidasSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="partidasSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="totalBultosSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="totalBultosSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="ctrSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="ctrSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" maximum="1" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="codPaisDestinoSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="codPaisDestinoSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="naturalezaTransacc1Spn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="naturalezaTransacc1Spn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="naturalezaTransacc2Spn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="naturalezaTransacc2Spn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="modoTransporteSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="modoTransporteSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="1" maximum="4" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="modoTransporte2Spn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="modoTransporte2Spn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="1" maximum="4" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="aduanaSalidaSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="aduanaSalidaSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="locMercanciasSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="locMercanciasSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="bultosDescMercanciasSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="bultosDescMercanciasSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="partidaSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="partidaSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="codMercanciasSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="codMercanciasSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="masaBrutaSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="masaBrutaSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="regimenSpn">
-                      <Properties>
-                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                          <SpinnerModel type="list">
-                            <ListItem value="10"/>
-                            <ListItem value="23"/>
-                            <ListItem value="31"/>
-                          </SpinnerModel>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="main.DuaSpinner" name="masaNetaSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="masaNetaSpn">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="main.DuaSpinner" name="precioFacturadoSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="precioFacturadoSpn">
                     </Component>
-                    <Component class="main.DuaSpinner" name="calculoTributosSpn">
+                    <Component class="org.cakeneka.components.DuaSpinner" name="calculoTributosSpn">
                     </Component>
-                    <Component class="main.DuaTextField" name="formulariosTf">
+                    <Component class="org.cakeneka.components.DuaTextField" name="formulariosTf">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel66">
                       <Properties>
@@ -1345,6 +1339,17 @@
                     <Component class="javax.swing.JLabel" name="jLabel32">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Los campos marcados con * son obligatorios"/>
+                      </Properties>
+                    </Component>
+                    <Component class="org.cakeneka.components.DuaComboBox" name="regimenCb">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="3">
+                            <StringItem index="0" value="10"/>
+                            <StringItem index="1" value="24"/>
+                            <StringItem index="2" value="31"/>
+                          </StringArray>
+                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>

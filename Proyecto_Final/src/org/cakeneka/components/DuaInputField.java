@@ -1,4 +1,4 @@
-package main;
+package org.cakeneka.components;
 
 /**
  * Define el comportamiento que deben implementar los campos del formulario.
@@ -11,5 +11,5 @@ public interface DuaInputField {
     void setRequired(boolean required);
     
     String getField();
-    void setField(Object value);
+    void setField(String value);
 }

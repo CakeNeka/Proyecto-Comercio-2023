@@ -1,13 +1,12 @@
-package main;
+package org.cakeneka.utilities;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SaveState implements Comparable<SaveState>{
-    private LocalDateTime dateCreated;
     private int id;
+    private LocalDateTime dateCreated;
     private List<String> fields;
 
     public SaveState(LocalDateTime dateCreated, int id, List<String> fields) {
@@ -15,6 +14,13 @@ public class SaveState implements Comparable<SaveState>{
         this.id = id;
         this.fields = fields;
     }
+
+    @Override
+    public String toString() {
+        return "SaveState " + id + " (" + getFormattedDateCreated() + ")";
+    }
+    
+    
     
     @Override
     public int compareTo(SaveState o) {

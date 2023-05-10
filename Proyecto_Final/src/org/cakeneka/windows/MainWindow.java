@@ -1,8 +1,11 @@
-package main;
+package org.cakeneka.windows;
 
+import org.cakeneka.utilities.DuaDatabase;
+import org.cakeneka.utilities.DuaGenerator;
+import org.cakeneka.components.DuaInputField;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,19 +14,23 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class MainWindow extends javax.swing.JFrame {
-
-    List<DuaInputField> inputFields;
-    DUAGenerator duaGenerator;
+    
+    private DuaDatabase database;
+    private List<DuaInputField> inputFields;
+    private DuaGenerator duaGenerator;
 
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         inputFields = new ArrayList<>();
+        duaGenerator = new DuaGenerator();
+        database = new DuaDatabase();
+        
         initComponents();
         addInputFields();                                                     // Añade todos los campos de entrada de datos a la lista inputFields
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);  // Aumenta velocidad vertical de la barra de desplazamiento
-        duaGenerator = new DUAGenerator();
+        setLocationRelativeTo(null);
     }
        
     private void addInputFields() {
@@ -67,7 +74,9 @@ public class MainWindow extends javax.swing.JFrame {
         inputFields.add(codMercanciasSpn);
         inputFields.add(codPaisOrigenTf);
         inputFields.add(masaBrutaSpn);
-        inputFields.add(regimenSpn);
+        
+        inputFields.add(regimenCb);
+        
         inputFields.add(masaNetaSpn);
         inputFields.add(contingenteTf);
         inputFields.add(docCargoPrecedenteTf);
@@ -177,64 +186,64 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel63 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
-        aduanaTf = new main.DuaTextField();
-        declaracionTf = new main.DuaTextField();
-        exportadorNombreTf = new main.DuaTextField();
-        exportadorDireccionTf = new main.DuaTextField();
-        exportadorCifTf = new main.DuaTextField();
-        listaDeCargaTf = new main.DuaTextField();
-        numReferenciaTf = new main.DuaTextField();
-        destinatarioTf = new main.DuaTextField();
-        responsableFinancieroTf = new main.DuaTextField();
-        paisPrimerDestinoTf = new main.DuaTextField();
-        paisTransaccionTf = new main.DuaTextField();
-        pacTf = new main.DuaTextField();
-        declaranteRepresentanteTf = new main.DuaTextField();
-        paisExpedicionTf = new main.DuaTextField();
-        codPExpedExportTf = new main.DuaTextField();
-        paisOrigenTf = new main.DuaTextField();
-        paisDestinoTf = new main.DuaTextField();
-        idNacMedTransPartidaTf = new main.DuaTextField();
-        condicionesEntregaTf = new main.DuaTextField();
-        idNacMedTransActFronteraTf = new main.DuaTextField();
-        divisaImporteTotalTf = new main.DuaTextField();
-        tipoCambioTf = new main.DuaTextField();
-        lugarCargaTf = new main.DuaTextField();
-        datosFinancierosBancariosTf = new main.DuaTextField();
-        codPaisOrigenTf = new main.DuaTextField();
-        contingenteTf = new main.DuaTextField();
-        docCargoPrecedenteTf = new main.DuaTextField();
-        udsSuplementariasTf = new main.DuaTextField();
-        certificadosAutorizacionesTf = new main.DuaTextField();
-        valorEstadisticoTf = new main.DuaTextField();
-        aplazamientoPagoTf = new main.DuaTextField();
-        idDepositoTf = new main.DuaTextField();
-        obligadoPrincipalTf = new main.DuaTextField();
-        aduanasPasoPrevistasTf = new main.DuaTextField();
-        garantiaTf = new main.DuaTextField();
-        aduanasDestinoPaisTf = new main.DuaTextField();
-        lugarFechaTf = new main.DuaTextField();
-        partidasSpn = new main.DuaSpinner();
-        totalBultosSpn = new main.DuaSpinner();
-        ctrSpn = new main.DuaSpinner();
-        codPaisDestinoSpn = new main.DuaSpinner();
-        naturalezaTransacc1Spn = new main.DuaSpinner();
-        naturalezaTransacc2Spn = new main.DuaSpinner();
-        modoTransporteSpn = new main.DuaSpinner();
-        modoTransporte2Spn = new main.DuaSpinner();
-        aduanaSalidaSpn = new main.DuaSpinner();
-        locMercanciasSpn = new main.DuaSpinner();
-        bultosDescMercanciasSpn = new main.DuaSpinner();
-        partidaSpn = new main.DuaSpinner();
-        codMercanciasSpn = new main.DuaSpinner();
-        masaBrutaSpn = new main.DuaSpinner();
-        regimenSpn = new main.DuaSpinner();
-        masaNetaSpn = new main.DuaSpinner();
-        precioFacturadoSpn = new main.DuaSpinner();
-        calculoTributosSpn = new main.DuaSpinner();
-        formulariosTf = new main.DuaTextField();
+        aduanaTf = new org.cakeneka.components.DuaTextField();
+        declaracionTf = new org.cakeneka.components.DuaTextField();
+        exportadorNombreTf = new org.cakeneka.components.DuaTextField();
+        exportadorDireccionTf = new org.cakeneka.components.DuaTextField();
+        exportadorCifTf = new org.cakeneka.components.DuaTextField();
+        listaDeCargaTf = new org.cakeneka.components.DuaTextField();
+        numReferenciaTf = new org.cakeneka.components.DuaTextField();
+        destinatarioTf = new org.cakeneka.components.DuaTextField();
+        responsableFinancieroTf = new org.cakeneka.components.DuaTextField();
+        paisPrimerDestinoTf = new org.cakeneka.components.DuaTextField();
+        paisTransaccionTf = new org.cakeneka.components.DuaTextField();
+        pacTf = new org.cakeneka.components.DuaTextField();
+        declaranteRepresentanteTf = new org.cakeneka.components.DuaTextField();
+        paisExpedicionTf = new org.cakeneka.components.DuaTextField();
+        codPExpedExportTf = new org.cakeneka.components.DuaTextField();
+        paisOrigenTf = new org.cakeneka.components.DuaTextField();
+        paisDestinoTf = new org.cakeneka.components.DuaTextField();
+        idNacMedTransPartidaTf = new org.cakeneka.components.DuaTextField();
+        condicionesEntregaTf = new org.cakeneka.components.DuaTextField();
+        idNacMedTransActFronteraTf = new org.cakeneka.components.DuaTextField();
+        divisaImporteTotalTf = new org.cakeneka.components.DuaTextField();
+        tipoCambioTf = new org.cakeneka.components.DuaTextField();
+        lugarCargaTf = new org.cakeneka.components.DuaTextField();
+        datosFinancierosBancariosTf = new org.cakeneka.components.DuaTextField();
+        codPaisOrigenTf = new org.cakeneka.components.DuaTextField();
+        contingenteTf = new org.cakeneka.components.DuaTextField();
+        docCargoPrecedenteTf = new org.cakeneka.components.DuaTextField();
+        udsSuplementariasTf = new org.cakeneka.components.DuaTextField();
+        certificadosAutorizacionesTf = new org.cakeneka.components.DuaTextField();
+        valorEstadisticoTf = new org.cakeneka.components.DuaTextField();
+        aplazamientoPagoTf = new org.cakeneka.components.DuaTextField();
+        idDepositoTf = new org.cakeneka.components.DuaTextField();
+        obligadoPrincipalTf = new org.cakeneka.components.DuaTextField();
+        aduanasPasoPrevistasTf = new org.cakeneka.components.DuaTextField();
+        garantiaTf = new org.cakeneka.components.DuaTextField();
+        aduanasDestinoPaisTf = new org.cakeneka.components.DuaTextField();
+        lugarFechaTf = new org.cakeneka.components.DuaTextField();
+        partidasSpn = new org.cakeneka.components.DuaSpinner();
+        totalBultosSpn = new org.cakeneka.components.DuaSpinner();
+        ctrSpn = new org.cakeneka.components.DuaSpinner();
+        codPaisDestinoSpn = new org.cakeneka.components.DuaSpinner();
+        naturalezaTransacc1Spn = new org.cakeneka.components.DuaSpinner();
+        naturalezaTransacc2Spn = new org.cakeneka.components.DuaSpinner();
+        modoTransporteSpn = new org.cakeneka.components.DuaSpinner();
+        modoTransporte2Spn = new org.cakeneka.components.DuaSpinner();
+        aduanaSalidaSpn = new org.cakeneka.components.DuaSpinner();
+        locMercanciasSpn = new org.cakeneka.components.DuaSpinner();
+        bultosDescMercanciasSpn = new org.cakeneka.components.DuaSpinner();
+        partidaSpn = new org.cakeneka.components.DuaSpinner();
+        codMercanciasSpn = new org.cakeneka.components.DuaSpinner();
+        masaBrutaSpn = new org.cakeneka.components.DuaSpinner();
+        masaNetaSpn = new org.cakeneka.components.DuaSpinner();
+        precioFacturadoSpn = new org.cakeneka.components.DuaSpinner();
+        calculoTributosSpn = new org.cakeneka.components.DuaSpinner();
+        formulariosTf = new org.cakeneka.components.DuaTextField();
         jLabel66 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        regimenCb = new org.cakeneka.components.DuaComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         loadMenuItem = new javax.swing.JMenuItem();
@@ -255,7 +264,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel30.setText("Conectado como:");
 
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Default_pfp.svg (1).png"))); // NOI18N
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_0.png"))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -310,7 +319,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         jScrollPane1.setBorder(null);
@@ -452,13 +462,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         masaBrutaSpn.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
-        regimenSpn.setModel(new javax.swing.SpinnerListModel(new String[] {"10", "23", "31"}));
-
         masaNetaSpn.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         jLabel66.setText("Formularios");
 
         jLabel32.setText("Los campos marcados con * son obligatorios");
+
+        regimenCb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "24", "31" }));
 
         javax.swing.GroupLayout duaImportacionPanelLayout = new javax.swing.GroupLayout(duaImportacionPanel);
         duaImportacionPanel.setLayout(duaImportacionPanelLayout);
@@ -466,10 +476,6 @@ public class MainWindow extends javax.swing.JFrame {
             duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel66)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(formulariosTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(duaImportacionPanelLayout.createSequentialGroup()
                             .addGap(216, 216, 216)
@@ -478,245 +484,249 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addComponent(jLabel64))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(exportadorDireccionTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exportadorDireccionTf, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                                 .addComponent(exportadorCifTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
-                            .addGap(31, 31, 31)
+                        .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, duaImportacionPanelLayout.createSequentialGroup()
-                                        .addGap(73, 73, 73)
-                                        .addComponent(jLabel28)
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel55))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(valorEstadisticoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(calculoTributosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel62)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lugarFechaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel60)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(aduanasDestinoPaisTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel59)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(garantiaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel57)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(idDepositoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel56)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(aplazamientoPagoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel52)
+                                        .addComponent(jLabel50)
+                                        .addComponent(jLabel53))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(certificadosAutorizacionesTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel51)
+                                        .addComponent(jLabel47))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(docCargoPrecedenteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel43)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(masaBrutaSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel42)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(codPaisOrigenTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaDeCargaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(partidasSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(destinatarioTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(numReferenciaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(paisPrimerDestinoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(responsableFinancieroTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pacTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(paisTransaccionTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(paisExpedicionTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(declaranteRepresentanteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(paisOrigenTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel16)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(codPExpedExportTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel17)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(paisDestinoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel18)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(codPaisDestinoSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel20)
+                                    .addGap(288, 288, 288))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel22)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(condicionesEntregaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel24)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tipoCambioTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel29)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(modoTransporte2Spn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
+                                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel37)
+                                            .addComponent(jLabel36))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(modoTransporteSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(aduanaSalidaSpn, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                                            .addComponent(locMercanciasSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGap(6, 6, 6)
                                         .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel55))
+                                                .addComponent(jLabel34)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(valorEstadisticoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(calculoTributosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(lugarCargaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel62)
+                                                .addComponent(jLabel35)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lugarFechaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel60)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(aduanasDestinoPaisTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel59)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(garantiaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel57)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(idDepositoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel56)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(aplazamientoPagoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel52)
-                                                    .addComponent(jLabel50)
-                                                    .addComponent(jLabel53))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(certificadosAutorizacionesTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel51)
-                                                    .addComponent(jLabel47))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(docCargoPrecedenteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel43)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(masaBrutaSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel42)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(codPaisOrigenTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(listaDeCargaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(partidasSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(destinatarioTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(numReferenciaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(paisPrimerDestinoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(responsableFinancieroTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel12)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(pacTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(paisTransaccionTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(paisExpedicionTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel14)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(declaranteRepresentanteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel15)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(paisOrigenTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel16)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(codPExpedExportTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel17)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(paisDestinoTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel18)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(codPaisDestinoSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel20)
-                                                .addGap(288, 288, 288))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel22)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(condicionesEntregaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel24)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tipoCambioTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel29)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(modoTransporte2Spn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
-                                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel37)
-                                                        .addComponent(jLabel36))
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(aduanaSalidaSpn, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                                        .addComponent(locMercanciasSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                    .addGap(6, 6, 6)
-                                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                            .addComponent(jLabel34)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(lugarCargaTf, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                            .addComponent(jLabel35)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(datosFinancierosBancariosTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel38)
-                                                    .addComponent(jLabel39))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(bultosDescMercanciasSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel44)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(regimenSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel46)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(contingenteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel48)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(udsSuplementariasTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel49)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(precioFacturadoSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel61))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(aduanasPasoPrevistasTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                                    .addComponent(obligadoPrincipalTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(totalBultosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel21)
-                                                    .addComponent(jLabel19))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(idNacMedTransPartidaTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                                    .addComponent(ctrSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel40)
-                                                    .addComponent(jLabel41))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(partidaSpn, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                                    .addComponent(codMercanciasSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel26)
-                                                    .addComponent(jLabel23)
-                                                    .addComponent(jLabel25))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(idNacMedTransActFronteraTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(divisaImporteTotalTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
-                                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel4)
-                                                    .addComponent(jLabel2))
-                                                .addGap(6, 6, 6)
-                                                .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel32)
-                                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(aduanaTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
-                                                            .addComponent(jLabel63)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(exportadorNombreTf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(declaracionTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))))))
+                                                .addComponent(datosFinancierosBancariosTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel38)
+                                        .addComponent(jLabel39))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(bultosDescMercanciasSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel44)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(regimenCb, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel46)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(contingenteTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel48)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(udsSuplementariasTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel49)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(precioFacturadoSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel61))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(aduanasPasoPrevistasTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                                        .addComponent(obligadoPrincipalTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(totalBultosSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel21)
+                                        .addComponent(jLabel19))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(idNacMedTransPartidaTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                                        .addComponent(ctrSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel40)
+                                        .addComponent(jLabel41))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(partidaSpn, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                                        .addComponent(codMercanciasSpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel26)
+                                        .addComponent(jLabel23)
+                                        .addComponent(jLabel25))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(idNacMedTransActFronteraTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(divisaImporteTotalTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
+                                .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2))
+                                    .addGap(6, 6, 6)
+                                    .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel32)
+                                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(aduanaTf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel63)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(exportadorNombreTf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(declaracionTf, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
                                     .addComponent(jLabel27)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(naturalezaTransacc1Spn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(42, 42, 42)
-                                    .addComponent(naturalezaTransacc2Spn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
-                            .addGap(115, 115, 115)
-                            .addComponent(jLabel45)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(masaNetaSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(naturalezaTransacc2Spn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duaImportacionPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel45)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(masaNetaSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel66)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(formulariosTf, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(duaImportacionPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(modoTransporteSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(131, Short.MAX_VALUE))
         );
         duaImportacionPanelLayout.setVerticalGroup(
@@ -891,7 +901,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel44)
-                    .addComponent(regimenSpn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(regimenCb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel45)
@@ -992,6 +1002,11 @@ public class MainWindow extends javax.swing.JFrame {
         FileMenu.add(loadMenuItem);
 
         saveMenuItem.setText("Guardar");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         FileMenu.add(saveMenuItem);
 
         jMenuBar1.add(FileMenu);
@@ -1037,9 +1052,22 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_generateDocumentationBtnActionPerformed
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
-        SaveLoadWindow slw = new SaveLoadWindow(this);
+        LoadDataWindow slw = new LoadDataWindow(this);
         slw.setVisible(true);
     }//GEN-LAST:event_loadMenuItemActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        // Array to hold the options
+        String[] options = { "Aceptar", "Cancelar" };
+
+        // Display the option dialog and get the user's choice
+        int choice = JOptionPane.showOptionDialog(this, "¿Desea guardar los datos actuales?", 
+                "Guardar datos", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        
+        if (choice == 0){
+            saveCurrentData();
+        } 
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private List<String> getStringFields() {
         List<String> values = new ArrayList<>();
@@ -1054,10 +1082,22 @@ public class MainWindow extends javax.swing.JFrame {
     public void updateFields(List<String> ls){
         if (ls.size() == inputFields.size()) {
             for (int i = 0; i < inputFields.size(); i++) {
+                System.out.println(ls.get(i));
                 inputFields.get(i).setField(ls.get(i));
             }
         }
     }
+    
+    private void saveCurrentData(){
+        try {
+            database.addSaveState(getStringFields());
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "No ha sido posible guardar los datos actuales", "Error", JOptionPane.ERROR);
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     
     public static void main(String args[]) {
 
@@ -1078,37 +1118,37 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EditMenu;
     private javax.swing.JMenu FileMenu;
-    private main.DuaSpinner aduanaSalidaSpn;
-    private main.DuaTextField aduanaTf;
-    private main.DuaTextField aduanasDestinoPaisTf;
-    private main.DuaTextField aduanasPasoPrevistasTf;
-    private main.DuaTextField aplazamientoPagoTf;
-    private main.DuaSpinner bultosDescMercanciasSpn;
-    private main.DuaSpinner calculoTributosSpn;
-    private main.DuaTextField certificadosAutorizacionesTf;
-    private main.DuaSpinner codMercanciasSpn;
-    private main.DuaTextField codPExpedExportTf;
-    private main.DuaSpinner codPaisDestinoSpn;
-    private main.DuaTextField codPaisOrigenTf;
-    private main.DuaTextField condicionesEntregaTf;
-    private main.DuaTextField contingenteTf;
-    private main.DuaSpinner ctrSpn;
-    private main.DuaTextField datosFinancierosBancariosTf;
-    private main.DuaTextField declaracionTf;
-    private main.DuaTextField declaranteRepresentanteTf;
-    private main.DuaTextField destinatarioTf;
-    private main.DuaTextField divisaImporteTotalTf;
-    private main.DuaTextField docCargoPrecedenteTf;
+    private org.cakeneka.components.DuaSpinner aduanaSalidaSpn;
+    private org.cakeneka.components.DuaTextField aduanaTf;
+    private org.cakeneka.components.DuaTextField aduanasDestinoPaisTf;
+    private org.cakeneka.components.DuaTextField aduanasPasoPrevistasTf;
+    private org.cakeneka.components.DuaTextField aplazamientoPagoTf;
+    private org.cakeneka.components.DuaSpinner bultosDescMercanciasSpn;
+    private org.cakeneka.components.DuaSpinner calculoTributosSpn;
+    private org.cakeneka.components.DuaTextField certificadosAutorizacionesTf;
+    private org.cakeneka.components.DuaSpinner codMercanciasSpn;
+    private org.cakeneka.components.DuaTextField codPExpedExportTf;
+    private org.cakeneka.components.DuaSpinner codPaisDestinoSpn;
+    private org.cakeneka.components.DuaTextField codPaisOrigenTf;
+    private org.cakeneka.components.DuaTextField condicionesEntregaTf;
+    private org.cakeneka.components.DuaTextField contingenteTf;
+    private org.cakeneka.components.DuaSpinner ctrSpn;
+    private org.cakeneka.components.DuaTextField datosFinancierosBancariosTf;
+    private org.cakeneka.components.DuaTextField declaracionTf;
+    private org.cakeneka.components.DuaTextField declaranteRepresentanteTf;
+    private org.cakeneka.components.DuaTextField destinatarioTf;
+    private org.cakeneka.components.DuaTextField divisaImporteTotalTf;
+    private org.cakeneka.components.DuaTextField docCargoPrecedenteTf;
     private javax.swing.JPanel duaImportacionPanel;
-    private main.DuaTextField exportadorCifTf;
-    private main.DuaTextField exportadorDireccionTf;
-    private main.DuaTextField exportadorNombreTf;
-    private main.DuaTextField formulariosTf;
-    private main.DuaTextField garantiaTf;
+    private org.cakeneka.components.DuaTextField exportadorCifTf;
+    private org.cakeneka.components.DuaTextField exportadorDireccionTf;
+    private org.cakeneka.components.DuaTextField exportadorNombreTf;
+    private org.cakeneka.components.DuaTextField formulariosTf;
+    private org.cakeneka.components.DuaTextField garantiaTf;
     private javax.swing.JButton generateDocumentationBtn;
-    private main.DuaTextField idDepositoTf;
-    private main.DuaTextField idNacMedTransActFronteraTf;
-    private main.DuaTextField idNacMedTransPartidaTf;
+    private org.cakeneka.components.DuaTextField idDepositoTf;
+    private org.cakeneka.components.DuaTextField idNacMedTransActFronteraTf;
+    private org.cakeneka.components.DuaTextField idNacMedTransPartidaTf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1181,34 +1221,34 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private main.DuaTextField listaDeCargaTf;
+    private org.cakeneka.components.DuaTextField listaDeCargaTf;
     private javax.swing.JMenuItem loadMenuItem;
-    private main.DuaSpinner locMercanciasSpn;
-    private main.DuaTextField lugarCargaTf;
-    private main.DuaTextField lugarFechaTf;
-    private main.DuaSpinner masaBrutaSpn;
-    private main.DuaSpinner masaNetaSpn;
-    private main.DuaSpinner modoTransporte2Spn;
-    private main.DuaSpinner modoTransporteSpn;
-    private main.DuaSpinner naturalezaTransacc1Spn;
-    private main.DuaSpinner naturalezaTransacc2Spn;
-    private main.DuaTextField numReferenciaTf;
-    private main.DuaTextField obligadoPrincipalTf;
-    private main.DuaTextField pacTf;
-    private main.DuaTextField paisDestinoTf;
-    private main.DuaTextField paisExpedicionTf;
-    private main.DuaTextField paisOrigenTf;
-    private main.DuaTextField paisPrimerDestinoTf;
-    private main.DuaTextField paisTransaccionTf;
-    private main.DuaSpinner partidaSpn;
-    private main.DuaSpinner partidasSpn;
-    private main.DuaSpinner precioFacturadoSpn;
-    private main.DuaSpinner regimenSpn;
-    private main.DuaTextField responsableFinancieroTf;
+    private org.cakeneka.components.DuaSpinner locMercanciasSpn;
+    private org.cakeneka.components.DuaTextField lugarCargaTf;
+    private org.cakeneka.components.DuaTextField lugarFechaTf;
+    private org.cakeneka.components.DuaSpinner masaBrutaSpn;
+    private org.cakeneka.components.DuaSpinner masaNetaSpn;
+    private org.cakeneka.components.DuaSpinner modoTransporte2Spn;
+    private org.cakeneka.components.DuaSpinner modoTransporteSpn;
+    private org.cakeneka.components.DuaSpinner naturalezaTransacc1Spn;
+    private org.cakeneka.components.DuaSpinner naturalezaTransacc2Spn;
+    private org.cakeneka.components.DuaTextField numReferenciaTf;
+    private org.cakeneka.components.DuaTextField obligadoPrincipalTf;
+    private org.cakeneka.components.DuaTextField pacTf;
+    private org.cakeneka.components.DuaTextField paisDestinoTf;
+    private org.cakeneka.components.DuaTextField paisExpedicionTf;
+    private org.cakeneka.components.DuaTextField paisOrigenTf;
+    private org.cakeneka.components.DuaTextField paisPrimerDestinoTf;
+    private org.cakeneka.components.DuaTextField paisTransaccionTf;
+    private org.cakeneka.components.DuaSpinner partidaSpn;
+    private org.cakeneka.components.DuaSpinner partidasSpn;
+    private org.cakeneka.components.DuaSpinner precioFacturadoSpn;
+    private org.cakeneka.components.DuaComboBox regimenCb;
+    private org.cakeneka.components.DuaTextField responsableFinancieroTf;
     private javax.swing.JMenuItem saveMenuItem;
-    private main.DuaTextField tipoCambioTf;
-    private main.DuaSpinner totalBultosSpn;
-    private main.DuaTextField udsSuplementariasTf;
-    private main.DuaTextField valorEstadisticoTf;
+    private org.cakeneka.components.DuaTextField tipoCambioTf;
+    private org.cakeneka.components.DuaSpinner totalBultosSpn;
+    private org.cakeneka.components.DuaTextField udsSuplementariasTf;
+    private org.cakeneka.components.DuaTextField valorEstadisticoTf;
     // End of variables declaration//GEN-END:variables
 }

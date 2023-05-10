@@ -1,51 +1,75 @@
-package main;
+package org.cakeneka.windows;
 
+import org.cakeneka.utilities.SaveState;
+import org.cakeneka.utilities.DuaDatabase;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class SaveLoadWindow extends javax.swing.JFrame {
+public class LoadDataWindow extends javax.swing.JFrame{
     
     private MainWindow parent;
     List<SaveState> saveStates;
-    DBConnectionManager database;
+    DuaDatabase database;
     
     /**
      * Creates new form SaveLoadWindow
      */
-    public SaveLoadWindow(MainWindow parent) {
+    public LoadDataWindow(MainWindow parent) {
         initComponents();
         this.parent = parent;
         this.setLocationRelativeTo(parent);
         saveStates = new ArrayList<>();
-   //   database = new DBConnectionManager();
-   //   initList();
+        database = new DuaDatabase();
+        updateList();
     }
     
-    private void initList(){
+    private void updateList(){
         String[][] saves;
         try {
-            saves = database.getTable("saveStates");
+            saves = database.executeSelect("SELECT * FROM SaveStates");
+            saveStates.clear();
             for (int i = 0; i < saves.length; i++) {
                 SaveState saveState = createSaveState(saves[i]);
                 saveStates.add(saveState);
             }
+            saveStates.sort(Comparator.reverseOrder());
+            
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (SaveState saveState : saveStates) {
+                model.addElement(saveState.toString());
+            }
+            savesJList.setModel(model);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error durante la conexión, volviendo a la ventana principal");
             dispose();
         }
     }
     
+    private void deleteSaveState() {
+        int selectedIndex = savesJList.getSelectedIndex();
+        SaveState selectedSave = saveStates.get(selectedIndex);
+        
+    }
+    
     private SaveState createSaveState(String[] params) {
+        DateTimeFormatter mySqlTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        
         int id = Integer.parseInt(params[0]);
-        LocalDateTime timeCreated = LocalDateTime.parse(params[1]);
+        LocalDateTime timeCreated = LocalDateTime.parse(params[1], mySqlTimeFormat);
         String duaFields = params[2];
-        List<String> fields = Arrays.asList(duaFields.split("\\$"));
+        List<String> fields = Arrays.asList(duaFields.split("\\\\"));
         
         return new SaveState(timeCreated, id, fields);
     }
@@ -64,7 +88,7 @@ public class SaveLoadWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        savesList = new javax.swing.JList<>();
+        savesJList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,8 +104,13 @@ public class SaveLoadWindow extends javax.swing.JFrame {
         jLabel1.setText("Cargar datos guardados");
 
         deleteBtn.setText("Eliminar");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
-        jScrollPane1.setViewportView(savesList);
+        jScrollPane1.setViewportView(savesJList);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,19 +166,30 @@ public class SaveLoadWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
-        int selectedIndex = savesList.getSelectedIndex();
+        int selectedIndex = savesJList.getSelectedIndex();
         SaveState selectedSave = saveStates.get(selectedIndex);
         parent.updateFields(selectedSave.getFields());
         dispose();
     }//GEN-LAST:event_loadBtnActionPerformed
 
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int selectedIndex = savesJList.getSelectedIndex();
+        SaveState selectedSave = saveStates.get(selectedIndex);
+        try {
+            database.deleteById(selectedSave.getId());
+            updateList();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Se ha producido un error al eliminar el guardado");
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loadBtn;
-    private javax.swing.JList<String> savesList;
+    private javax.swing.JList<String> savesJList;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package main;
+package org.cakeneka.components;
 
 import javax.swing.JTextField;
 
@@ -26,7 +26,7 @@ public class DuaTextField extends JTextField implements DuaInputField{
     }
     
     @Override
-    public void setField(Object value) {
-        setText((String)value);
+    public void setField(String value) {
+        setText(value);
     }
 }
