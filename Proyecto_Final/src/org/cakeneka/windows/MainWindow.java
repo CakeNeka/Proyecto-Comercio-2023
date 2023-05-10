@@ -74,9 +74,7 @@ public class MainWindow extends javax.swing.JFrame {
         inputFields.add(codMercanciasSpn);
         inputFields.add(codPaisOrigenTf);
         inputFields.add(masaBrutaSpn);
-        
         inputFields.add(regimenCb);
-        
         inputFields.add(masaNetaSpn);
         inputFields.add(contingenteTf);
         inputFields.add(docCargoPrecedenteTf);
@@ -95,7 +93,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         boolean[] requiredFields = {
             true,true,true,true,true,false,false,true,true,false,true,false,false,false, //15 (ultimo > pais transac)
-            false,true,true,true,true,false,true,false,true,true,false,true,true,        //14    (ultimo > tipo cambio)
+            false,true,true,true,true,false,true,false,true,true,false,true,true,        //14 (ultimo > tipo cambio)
             true,true,true,true,false,false,true,true,true,false,true,true,true,true,    //14
             true,false,false,false,true,true,true,true,false,false,false,false,          //12
             false,false,true                                                             //3
@@ -249,6 +247,7 @@ public class MainWindow extends javax.swing.JFrame {
         loadMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         EditMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Project D.U.A.");
@@ -293,8 +292,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel33.setForeground(new java.awt.Color(230, 230, 230));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("12345678910111213");
+        jLabel33.setText("Default User");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -316,7 +316,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jLabel31)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel30)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1012,6 +1012,10 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(FileMenu);
 
         EditMenu.setText("Aplicación");
+
+        jMenuItem1.setText("Información");
+        EditMenu.add(jMenuItem1);
+
         jMenuBar1.add(EditMenu);
 
         setJMenuBar(jMenuBar1);
@@ -1093,7 +1097,7 @@ public class MainWindow extends javax.swing.JFrame {
             database.addSaveState(getStringFields());
             JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "No ha sido posible guardar los datos actuales", "Error", JOptionPane.ERROR);
+            JOptionPane.showMessageDialog(this, "No ha sido posible guardar los datos actuales", "Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -1216,6 +1220,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.SQLException;    
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DuaDatabase {
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -80,16 +82,16 @@ public class DuaDatabase {
         return rowsAffected;
     }
     
-    private Connection connect() {
+    private Connection connect() throws SQLException {
         Connection con = null;
+
         try {
             Class.forName(JDBC_DRIVER);
-            con = (com.mysql.jdbc.Connection) DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DuaDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
+        con = (com.mysql.jdbc.Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+
         return con;
     }
 
