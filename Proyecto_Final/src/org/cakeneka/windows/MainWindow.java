@@ -243,11 +243,11 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         regimenCb = new org.cakeneka.components.DuaComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
-        FileMenu = new javax.swing.JMenu();
+        fileMenu = new javax.swing.JMenu();
         loadMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
-        EditMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        appMenu = new javax.swing.JMenu();
+        infoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Project D.U.A.");
@@ -727,7 +727,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(modoTransporteSpn, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         duaImportacionPanelLayout.setVerticalGroup(
             duaImportacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -979,19 +979,19 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("DUA Exportación", jPanel2);
 
-        FileMenu.setText("Archivo");
+        fileMenu.setText("Archivo");
 
         loadMenuItem.setText("Cargar");
         loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -999,7 +999,7 @@ public class MainWindow extends javax.swing.JFrame {
                 loadMenuItemActionPerformed(evt);
             }
         });
-        FileMenu.add(loadMenuItem);
+        fileMenu.add(loadMenuItem);
 
         saveMenuItem.setText("Guardar");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1007,16 +1007,21 @@ public class MainWindow extends javax.swing.JFrame {
                 saveMenuItemActionPerformed(evt);
             }
         });
-        FileMenu.add(saveMenuItem);
+        fileMenu.add(saveMenuItem);
 
-        jMenuBar1.add(FileMenu);
+        jMenuBar1.add(fileMenu);
 
-        EditMenu.setText("Aplicación");
+        appMenu.setText("Aplicación");
 
-        jMenuItem1.setText("Información");
-        EditMenu.add(jMenuItem1);
+        infoMenuItem.setText("Información");
+        infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoMenuItemActionPerformed(evt);
+            }
+        });
+        appMenu.add(infoMenuItem);
 
-        jMenuBar1.add(EditMenu);
+        jMenuBar1.add(appMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1027,16 +1032,13 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
-                .addGap(12, 12, 12))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -1073,6 +1075,10 @@ public class MainWindow extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
+    private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
+        new InfoWindow().setVisible(true);
+    }//GEN-LAST:event_infoMenuItemActionPerformed
+
     private List<String> getStringFields() {
         List<String> values = new ArrayList<>();
         inputFields.stream().forEach(i -> values.add(i.getField()));
@@ -1080,6 +1086,15 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private boolean validateFields() {
+        /* EQUIVALENTE
+        for (DuaInputField inputField : inputFields) {
+            if (inputField.isRequired() && (inputField.getField().isEmpty() || inputField.getField() == null)){
+                return false;
+            }
+        }
+        return true;
+        */
+        
         return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
     }
     
@@ -1120,13 +1135,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu EditMenu;
-    private javax.swing.JMenu FileMenu;
     private org.cakeneka.components.DuaSpinner aduanaSalidaSpn;
     private org.cakeneka.components.DuaTextField aduanaTf;
     private org.cakeneka.components.DuaTextField aduanasDestinoPaisTf;
     private org.cakeneka.components.DuaTextField aduanasPasoPrevistasTf;
     private org.cakeneka.components.DuaTextField aplazamientoPagoTf;
+    private javax.swing.JMenu appMenu;
     private org.cakeneka.components.DuaSpinner bultosDescMercanciasSpn;
     private org.cakeneka.components.DuaSpinner calculoTributosSpn;
     private org.cakeneka.components.DuaTextField certificadosAutorizacionesTf;
@@ -1147,12 +1161,14 @@ public class MainWindow extends javax.swing.JFrame {
     private org.cakeneka.components.DuaTextField exportadorCifTf;
     private org.cakeneka.components.DuaTextField exportadorDireccionTf;
     private org.cakeneka.components.DuaTextField exportadorNombreTf;
+    private javax.swing.JMenu fileMenu;
     private org.cakeneka.components.DuaTextField formulariosTf;
     private org.cakeneka.components.DuaTextField garantiaTf;
     private javax.swing.JButton generateDocumentationBtn;
     private org.cakeneka.components.DuaTextField idDepositoTf;
     private org.cakeneka.components.DuaTextField idNacMedTransActFronteraTf;
     private org.cakeneka.components.DuaTextField idNacMedTransPartidaTf;
+    private javax.swing.JMenuItem infoMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1220,7 +1236,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
