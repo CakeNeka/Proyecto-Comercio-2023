@@ -3,23 +3,26 @@ package org.cakeneka.windows;
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
-public class InfoWindow extends javax.swing.JFrame {
+public class InfoWindow extends javax.swing.JFrame  {
     
-    private int progressBarValue;
+    private MainWindow parent;
+    
     private Timer timer;
     
+    private int progressBarValue;
     private double increment = 1;
     private double curValue = 0;
     
     /**
      * Creates new form InfoWindow
      */
-    public InfoWindow() {
+    public InfoWindow(MainWindow parent) {
         initComponents();
-        timer = new Timer(1000 / 120, (ActionEvent ae) -> {
+        timer = new Timer(1000 / 60, (ActionEvent ae) -> {
             update();
         });
         timer.start();
+        this.parent = parent;
     }
     
     private void update() {
@@ -27,6 +30,7 @@ public class InfoWindow extends javax.swing.JFrame {
         System.out.println(progressBarValue);
         progressBar.setValue(progressBarValue);
         curValue += increment;
+        repaint();
     }
     
     /**
@@ -46,6 +50,11 @@ public class InfoWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,6 +96,10 @@ public class InfoWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        timer.stop();
+    }//GEN-LAST:event_formWindowClosed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

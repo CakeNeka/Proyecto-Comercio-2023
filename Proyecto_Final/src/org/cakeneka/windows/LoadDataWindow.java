@@ -1,7 +1,7 @@
 package org.cakeneka.windows;
 
 import org.cakeneka.utilities.SaveState;
-import org.cakeneka.utilities.DuaDatabase;
+import org.cakeneka.utilities.DuaPersistenceManager;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
     
     private MainWindow parent;
     List<SaveState> saveStates;
-    DuaDatabase database;
+    DuaPersistenceManager database;
     
     /**
      * Creates new form SaveLoadWindow
@@ -31,17 +31,17 @@ public class LoadDataWindow extends javax.swing.JFrame{
         this.parent = parent;
         this.setLocationRelativeTo(parent);
         saveStates = new ArrayList<>();
-        database = new DuaDatabase();
+        database = new DuaPersistenceManager();
         updateList();
     }
     
     private void updateList(){
-        String[][] saves;
+        String[][] savesTable;
         try {
-            saves = database.executeSelect("SELECT * FROM SaveStates");
+            savesTable = database.getSaveStatesTable();
             saveStates.clear();
-            for (int i = 0; i < saves.length; i++) {
-                SaveState saveState = createSaveState(saves[i]);
+            for (int i = 0; i < savesTable.length; i++) {
+                SaveState saveState = createSaveState(savesTable[i]);
                 saveStates.add(saveState);
             }
             saveStates.sort(Comparator.reverseOrder());
@@ -55,12 +55,6 @@ public class LoadDataWindow extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(this, "Ocurrió un error durante la conexión, volviendo a la ventana principal");
             dispose();
         }
-    }
-    
-    private void deleteSaveState() {
-        int selectedIndex = savesJList.getSelectedIndex();
-        SaveState selectedSave = saveStates.get(selectedIndex);
-        
     }
     
     private SaveState createSaveState(String[] params) {
@@ -176,7 +170,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
         int selectedIndex = savesJList.getSelectedIndex();
         SaveState selectedSave = saveStates.get(selectedIndex);
         try {
-            database.deleteById(selectedSave.getId());
+            database.deleteSaveStateById(selectedSave.getId());
             updateList();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Se ha producido un error al eliminar el guardado");

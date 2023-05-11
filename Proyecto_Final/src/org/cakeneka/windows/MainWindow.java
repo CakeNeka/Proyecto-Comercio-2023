@@ -1,6 +1,6 @@
 package org.cakeneka.windows;
 
-import org.cakeneka.utilities.DuaDatabase;
+import org.cakeneka.utilities.DuaPersistenceManager;
 import org.cakeneka.utilities.DuaGenerator;
 import org.cakeneka.components.DuaInputField;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 
 public class MainWindow extends javax.swing.JFrame {
     
-    private DuaDatabase database;
+    private DuaPersistenceManager database;
     private List<DuaInputField> inputFields;
     private DuaGenerator duaGenerator;
 
@@ -25,7 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         inputFields = new ArrayList<>();
         duaGenerator = new DuaGenerator();
-        database = new DuaDatabase();
+        database = new DuaPersistenceManager();
         
         initComponents();
         addInputFields();                                                     // Añade todos los campos de entrada de datos a la lista inputFields
@@ -1076,7 +1076,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
-        new InfoWindow().setVisible(true);
+        InfoWindow iw = new InfoWindow(this);
+        iw.setVisible(true);
     }//GEN-LAST:event_infoMenuItemActionPerformed
 
     private List<String> getStringFields() {
