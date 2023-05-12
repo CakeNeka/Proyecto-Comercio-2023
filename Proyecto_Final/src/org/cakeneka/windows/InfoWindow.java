@@ -18,6 +18,7 @@ public class InfoWindow extends javax.swing.JFrame  {
      */
     public InfoWindow(MainWindow parent) {
         initComponents();
+        progressBar.setMinimum(-1000);
         timer = new Timer(1000 / 60, (ActionEvent ae) -> {
             update();
         });
@@ -26,9 +27,10 @@ public class InfoWindow extends javax.swing.JFrame  {
     }
     
     private void update() {
-        progressBarValue = (int) Math.abs(Math.round(Math.sin(curValue*(Math.PI / 180)) * 1000)) ;
+        progressBarValue = (int) Math.round(Math.sin(curValue*(Math.PI / 180)) * 1000) ;
         System.out.println(progressBarValue);
         progressBar.setValue(progressBarValue);
+        progressBar1.setValue(progressBarValue * -1);
         curValue += increment;
         repaint();
     }
@@ -46,6 +48,7 @@ public class InfoWindow extends javax.swing.JFrame  {
         jLabel2 = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         jSeparator1 = new javax.swing.JSeparator();
+        progressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -66,7 +69,10 @@ public class InfoWindow extends javax.swing.JFrame  {
 
         progressBar.setMaximum(1000);
         progressBar.setToolTipText("Documento Ultra Aburrido");
-        progressBar.setValue(15);
+
+        progressBar1.setMaximum(1000);
+        progressBar1.setMinimum(-1000);
+        progressBar1.setToolTipText("Documento Ultra Aburrido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,7 +83,9 @@ public class InfoWindow extends javax.swing.JFrame  {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(progressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -89,7 +97,9 @@ public class InfoWindow extends javax.swing.JFrame  {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -107,5 +117,6 @@ public class InfoWindow extends javax.swing.JFrame  {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JProgressBar progressBar1;
     // End of variables declaration//GEN-END:variables
 }

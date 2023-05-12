@@ -30,7 +30,10 @@ public final class DuaGenerator implements TextFileReader{
         
         // 2
         for (int i = 0; i < data.size(); i++) {
-            text = text.replace("[" + (i + 1) + "]", data.get(i));
+            String field = data.get(i);
+            field = field.replace("<", "&lt;");
+            field = field.replace(">", "&gt;");
+            text = text.replace("[" + (i + 1) + "]", field);
         }
         System.out.println(text);
         

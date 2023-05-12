@@ -1087,7 +1087,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private boolean validateFields() {
-        /* EQUIVALENTE
+        /* 
+        CÓDIGO EQUIVALENTE
         for (DuaInputField inputField : inputFields) {
             if (inputField.isRequired() && (inputField.getField().isEmpty() || inputField.getField() == null)){
                 return false;

@@ -32,7 +32,6 @@ public class LoadDataWindow extends javax.swing.JFrame{
         this.setLocationRelativeTo(parent);
         saveStates = new ArrayList<>();
         database = new DuaPersistenceManager();
-        updateList();
     }
     
     private void updateList(){
@@ -85,6 +84,11 @@ public class LoadDataWindow extends javax.swing.JFrame{
         savesJList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         loadBtn.setText("Cargar");
         loadBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -160,22 +164,38 @@ public class LoadDataWindow extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
-        int selectedIndex = savesJList.getSelectedIndex();
-        SaveState selectedSave = saveStates.get(selectedIndex);
-        parent.updateFields(selectedSave.getFields());
-        dispose();
+        SaveState selectedSave = getSelectedSaveState();
+        if (selectedSave != null){
+            parent.updateFields(selectedSave.getFields());
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Antes debes seleccionar un guardado","Atención",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        int selectedIndex = savesJList.getSelectedIndex();
-        SaveState selectedSave = saveStates.get(selectedIndex);
+        SaveState selectedSave = getSelectedSaveState();
         try {
-            database.deleteSaveStateById(selectedSave.getId());
-            updateList();
+            if (selectedSave != null){
+                database.deleteSaveStateById(selectedSave.getId());
+                updateList();
+            } else {
+                JOptionPane.showMessageDialog(this, "Antes debes seleccionar un guardado","Atención",JOptionPane.WARNING_MESSAGE);
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Se ha producido un error al eliminar el guardado");
+            JOptionPane.showMessageDialog(this, "Se ha producido un error al eliminar el guardado","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
+    
+    private SaveState getSelectedSaveState(){
+        int selectedIndex = savesJList.getSelectedIndex();
+        if (selectedIndex < 0) return null;
+        return saveStates.get(selectedIndex);
+    }
+    
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        updateList();
+    }//GEN-LAST:event_formWindowActivated
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
