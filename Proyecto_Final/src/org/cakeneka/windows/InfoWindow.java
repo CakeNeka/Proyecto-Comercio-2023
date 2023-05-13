@@ -24,6 +24,7 @@ public class InfoWindow extends javax.swing.JFrame  {
         });
         timer.start();
         this.parent = parent;
+        setLocationRelativeTo(parent);
     }
     
     private void update() {

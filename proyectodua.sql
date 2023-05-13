@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2023 a las 21:08:01
+-- Tiempo de generación: 13-05-2023 a las 09:38:09
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -45,6 +45,26 @@ INSERT INTO `savestates` (`id`, `dateCreated`, `fields`) VALUES
 (9, '2023-05-11 20:47:39', 'a\\a\\a\\a\\a\\a\\a\\0\\0\\a\\a\\a\\a\\a\\a\\a\\a\\a\\a\\0\\a\\a\\0\\a\\a\\a\\a\\0\\0\\1\\1\\a\\a\\0\\0\\0\\0\\0\\a\\0\\10\\0\\a\\a\\a\\0\\a\\a\\0\\a\\a\\a\\a\\a\\a\\a'),
 (10, '2023-05-11 20:53:17', 'a\\a\\a\\a\\a\\a\\a\\0\\0\\a\\a\\a\\a\\a\\a\\a\\a\\a\\a\\0\\a\\a\\0\\a\\a\\a\\a\\0\\0\\1\\1\\a\\a\\0\\0\\0\\0\\0\\a\\0\\10\\0\\a\\a\\a\\0\\a\\a\\0\\a\\a\\a\\a\\a\\a\\a');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_credentials`
+--
+
+CREATE TABLE `user_credentials` (
+  `UserName` varchar(40) NOT NULL,
+  `UserPassword` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user_credentials`
+--
+
+INSERT INTO `user_credentials` (`UserName`, `UserPassword`) VALUES
+('admin', '12345678'),
+('dfdfdsfsdfsfdsdfsdfsasdfasdfasdfasdf', '12345678'),
+('Yasuo', 'Yasuo1234');
+
 --
 -- Índices para tablas volcadas
 --
@@ -54,6 +74,12 @@ INSERT INTO `savestates` (`id`, `dateCreated`, `fields`) VALUES
 --
 ALTER TABLE `savestates`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `user_credentials`
+--
+ALTER TABLE `user_credentials`
+  ADD PRIMARY KEY (`UserName`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

@@ -9,11 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -51,7 +48,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
             }
             savesJList.setModel(model);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error durante la conexión, volviendo a la ventana principal");
+            JOptionPane.showMessageDialog(this, "Ocurrió un error durante la conexión, volviendo a la ventana principal","Error",JOptionPane.ERROR_MESSAGE);
             dispose();
         }
     }

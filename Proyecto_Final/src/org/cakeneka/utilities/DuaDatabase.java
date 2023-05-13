@@ -1,12 +1,15 @@
 package org.cakeneka.utilities;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class DuaDatabase extends MySqlConnection{
+public class DuaDatabase extends DatabaseConnection{
     
     public DuaDatabase() {
         super("proyectodua");
@@ -29,16 +32,26 @@ public class DuaDatabase extends MySqlConnection{
         while (resultSet.next()) {
             for (int j = 0; j < table[i].length; j++) {
                 Object cell = resultSet.getObject(j + 1);
-                if (cell == null) {
-                    table[i][j] = "null";
-                } else {
-                    table[i][j] = cell.toString();
-                }
+                table[i][j] = cell == null ? "null" : cell.toString();
             }
             i++;
         }
         
         connection.close();
         return table;
+    }
+    
+    @Override
+    protected Connection connect() throws SQLException {
+        Connection con;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DuaPersistenceManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        con = (com.mysql.jdbc.Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+
+        return con;
     }
 }
