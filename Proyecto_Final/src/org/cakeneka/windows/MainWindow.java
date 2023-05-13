@@ -4,17 +4,19 @@ import org.cakeneka.utilities.DuaPersistenceManager;
 import org.cakeneka.utilities.DuaGenerator;
 import org.cakeneka.components.DuaInputField;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Desktop;
 import java.awt.FontMetrics;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 public class MainWindow extends javax.swing.JFrame {
+    
+    private static final String DOCUMENTS_OUTPUT_PATH = "documents.html";
     
     private DuaPersistenceManager database;
     private List<DuaInputField> inputFields;
@@ -22,31 +24,43 @@ public class MainWindow extends javax.swing.JFrame {
     private String userName;
     /**
      * Creates new form MainWindow
+     * @param userName Este nombre lo envía la ventana de Login
      */
     public MainWindow(String userName) {
+        // Inicializar los atributos de la clase
         inputFields = new ArrayList<>();
         duaGenerator = new DuaGenerator();
         database = new DuaPersistenceManager();
         this.userName = userName;
-  
-        
+    
+        // Llamada a los métodos de inicialización
         initComponents();
-        addInputFields();                                                     // Añade todos los campos de entrada de datos a la lista inputFields
+        addInputFields();    
+        setRequiredInputFields(); // Añade todos los campos de entrada de datos a la lista inputFields
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);  // Aumenta velocidad vertical de la barra de desplazamiento
         setUserNameLabel(userName);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Para que la ventana aparezca centrada
     }
-       
+     
+    /**
+     * Establece el nombre que se mostrará bajo el texto 'Conectado como:'
+     * Añade ... si el nombre es demasiado largo
+     * @param name nombre del usuario
+     */
     private void setUserNameLabel(String name) {
-         
         FontMetrics fontMetrics = userNameLabel.getFontMetrics(userNameLabel.getFont());
-        int maxWidth = userNameLabel.getMaximumSize().width;
+        int maxWidth = userNameLabel.getWidth();
+        userNameLabel.setText(name);
+        
         while (fontMetrics.stringWidth(name + "...") > maxWidth) {
             name = name.substring(0, name.length() -1);
             userNameLabel.setText(name + "...");
         }
     }
     
+    /**
+     * Añade todos los JTextField, jSpinner y jComboBox a la lista 'inputFields'
+     */
     private void addInputFields() {
         inputFields.add(aduanaTf);
         inputFields.add(declaracionTf);
@@ -104,7 +118,12 @@ public class MainWindow extends javax.swing.JFrame {
         inputFields.add(garantiaTf);
         inputFields.add(aduanasDestinoPaisTf);
         inputFields.add(lugarFechaTf);
-        
+    }
+    
+    /**
+     * Define la obligatoriedad de los campos
+     */
+    private void setRequiredInputFields(){
         boolean[] requiredFields = {
             true,true,true,true,true,false,false,true,true,false,true,false,false,false, //15 (ultimo > pais transac)
             false,true,true,true,true,false,true,false,true,true,false,true,true,        //14 (ultimo > tipo cambio)
@@ -117,7 +136,73 @@ public class MainWindow extends javax.swing.JFrame {
             inputFields.get(i).setRequired(requiredFields[i]);
         }
     }
-
+        
+    /**
+     * Cambia la foto de perfil de la pantalla principal
+     * @param i índice de la foto de perfil
+     */
+    private void setPfp(int i) {
+        String pfpPath = "src/org/cakeneka/resources/pfp_" + i + ".png";
+        ImageIcon newIcon = new ImageIcon(pfpPath);
+        pfpLabel.setIcon(newIcon);
+    }
+    
+    /**
+     * Devuelve una lista con todos los campos del dua en forma de String.
+     * @return 
+     */
+    private List<String> getStringFields() {
+        List<String> values = new ArrayList<>();
+        inputFields.stream().forEach(i -> values.add(i.getField()));
+        return values;
+    }
+    
+    /**
+     * Comprueba si todos los campos obligatorios están rellenos
+     * @return true si todos los campos obligatorios están rellenos, false si no
+     */
+    private boolean validateFields() {        
+        return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
+        
+        /* 
+        CÓDIGO EQUIVALENTE
+        for (DuaInputField inputField : inputFields) {
+            if (inputField.isRequired() && (inputField.getField().isEmpty() || inputField.getField() == null)){
+                return false;
+            }
+        }
+        return true;
+        */
+    }
+    
+    /**
+     * Cambia el contenido de los JTextField, JSpinner y JComboBox por 
+     * los contenidos de la lista.
+     * Este método se utiliza desde LoadDataWindow cuando se selecciona la
+     * opción de 'Cargar'.
+     * @param ls Lista con la que se actualizan los campos.
+     */
+    public void updateFields(List<String> ls){
+        if (ls.size() == inputFields.size()) {
+            for (int i = 0; i < inputFields.size(); i++) {
+                System.out.println(ls.get(i));
+                inputFields.get(i).setField(ls.get(i));
+            }
+        }
+    }
+    
+    /**
+     * Guarda los datos de los JTextField, JSpinner y JComboBox en la base de datos
+     */
+    private void saveCurrentData(){
+        try {
+            database.addSaveState(getStringFields());
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "No ha sido posible guardar los datos actuales", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     /**
      * Código generado
      */
@@ -125,12 +210,6 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        generateDocumentationBtn = new javax.swing.JButton();
-        userNameLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -254,86 +333,29 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel66 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         regimenCb = new org.cakeneka.components.DuaComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        pfp1Btn = new javax.swing.JButton();
+        pfp3Btn = new javax.swing.JButton();
+        pfp2Btn = new javax.swing.JButton();
+        pfp4Btn = new javax.swing.JButton();
+        backgroundPanel1 = new org.cakeneka.components.BackgroundPanel();
+        pfpLabel = new javax.swing.JLabel();
+        generateDocumentationBtn = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        userNameLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        loadMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
+        loadMenuItem = new javax.swing.JMenuItem();
         appMenu = new javax.swing.JMenu();
         infoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Project D.U.A.");
         setAutoRequestFocus(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setPreferredSize(new java.awt.Dimension(124, 217));
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(240, 230, 230));
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setText("Conectado como:");
-
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_0.png"))); // NOI18N
-
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
-
-        generateDocumentationBtn.setText("<html><p style=\"text-align: center;\">Generar<br>Documentación</p></html>");
-        generateDocumentationBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        generateDocumentationBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateDocumentationBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        userNameLabel.setForeground(new java.awt.Color(230, 230, 230));
-        userNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userNameLabel.setText("Default Usersdfsdfsdf");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(userNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -998,21 +1020,131 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("DUA Exportación", jPanel2);
 
-        fileMenu.setText("Archivo");
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel69.setText("Elige una foto de perfil");
 
-        loadMenuItem.setText("Cargar");
-        loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        pfp1Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_1.png"))); // NOI18N
+        pfp1Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadMenuItemActionPerformed(evt);
+                pfp1BtnActionPerformed(evt);
             }
         });
-        fileMenu.add(loadMenuItem);
 
+        pfp3Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_3.png"))); // NOI18N
+        pfp3Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pfp3BtnActionPerformed(evt);
+            }
+        });
+
+        pfp2Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_2.png"))); // NOI18N
+        pfp2Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pfp2BtnActionPerformed(evt);
+            }
+        });
+
+        pfp4Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_4.png"))); // NOI18N
+        pfp4Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pfp4BtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(pfp1Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pfp2Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pfp3Btn)
+                        .addGap(18, 18, 18)
+                        .addComponent(pfp4Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pfp2Btn)
+                    .addComponent(pfp1Btn)
+                    .addComponent(pfp3Btn)
+                    .addComponent(pfp4Btn))
+                .addContainerGap(195, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Foto de perfil", jPanel1);
+
+        pfpLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pfpLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_0.png"))); // NOI18N
+
+        generateDocumentationBtn.setText("<html><p style=\"text-align: center;\">Generar<br>Documentación</p></html>");
+        generateDocumentationBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        generateDocumentationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateDocumentationBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setText("Conectado como:");
+
+        userNameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        userNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userNameLabel.setText("as");
+
+        javax.swing.GroupLayout backgroundPanel1Layout = new javax.swing.GroupLayout(backgroundPanel1);
+        backgroundPanel1.setLayout(backgroundPanel1Layout);
+        backgroundPanel1Layout.setHorizontalGroup(
+            backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgroundPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(pfpLabel)
+                        .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        backgroundPanel1Layout.setVerticalGroup(
+            backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pfpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(generateDocumentationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/fileIcon.png"))); // NOI18N
+        fileMenu.setText("Archivo");
+
+        saveMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/saveIcon.png"))); // NOI18N
         saveMenuItem.setText("Guardar");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1021,10 +1153,21 @@ public class MainWindow extends javax.swing.JFrame {
         });
         fileMenu.add(saveMenuItem);
 
+        loadMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/loadIcon.png"))); // NOI18N
+        loadMenuItem.setText("Cargar");
+        loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(loadMenuItem);
+
         jMenuBar1.add(fileMenu);
 
+        appMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/SettingsIcon.png"))); // NOI18N
         appMenu.setText("Aplicación");
 
+        infoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cakeneka/resources/infoIcon.png"))); // NOI18N
         infoMenuItem.setText("Información");
         infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1042,32 +1185,21 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backgroundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+            .addComponent(backgroundPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void generateDocumentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDocumentationBtnActionPerformed
-        List<String> stringFields = getStringFields();
-        if (validateFields()) {
-            try {
-                duaGenerator.generateDocuments(stringFields, "");
-            } catch (IOException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Tienes que rellenar todos los campos obligatorios");
-        }
-    }//GEN-LAST:event_generateDocumentationBtnActionPerformed
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
         LoadDataWindow slw = new LoadDataWindow(this);
@@ -1075,10 +1207,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        // Array to hold the options
         String[] options = { "Aceptar", "Cancelar" };
 
-        // Display the option dialog and get the user's choice
         int choice = JOptionPane.showOptionDialog(this, "¿Desea guardar los datos actuales?", 
                 "Guardar datos", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         
@@ -1092,45 +1222,38 @@ public class MainWindow extends javax.swing.JFrame {
         iw.setVisible(true);
     }//GEN-LAST:event_infoMenuItemActionPerformed
 
-    private List<String> getStringFields() {
-        List<String> values = new ArrayList<>();
-        inputFields.stream().forEach(i -> values.add(i.getField()));
-        return values;
-    }
-    
-    private boolean validateFields() {
-        /* 
-        CÓDIGO EQUIVALENTE
-        for (DuaInputField inputField : inputFields) {
-            if (inputField.isRequired() && (inputField.getField().isEmpty() || inputField.getField() == null)){
-                return false;
+    private void generateDocumentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDocumentationBtnActionPerformed
+        List<String> stringFields = getStringFields();
+        if (validateFields()) {
+            try {
+                duaGenerator.generateDocuments(stringFields, DOCUMENTS_OUTPUT_PATH);    // Generar documento html
+                File initialDirectory = new File(DOCUMENTS_OUTPUT_PATH);            
+                Desktop.getDesktop().open(initialDirectory);                                     // Abrir documento html
+            } catch (IOException ex) {
+               JOptionPane.showMessageDialog(this, "Se ha producido un error al generar la documentación", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes que rellenar todos los campos obligatorios");
         }
-        return true;
-        */
-        
-        return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
-    }
-    
-    public void updateFields(List<String> ls){
-        if (ls.size() == inputFields.size()) {
-            for (int i = 0; i < inputFields.size(); i++) {
-                System.out.println(ls.get(i));
-                inputFields.get(i).setField(ls.get(i));
-            }
-        }
-    }
-    
-    private void saveCurrentData(){
-        try {
-            database.addSaveState(getStringFields());
-            JOptionPane.showMessageDialog(this, "Datos guardados correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "No ha sido posible guardar los datos actuales", "Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    }//GEN-LAST:event_generateDocumentationBtnActionPerformed
 
+    private void pfp1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfp1BtnActionPerformed
+        setPfp(1);
+    }//GEN-LAST:event_pfp1BtnActionPerformed
+
+    private void pfp2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfp2BtnActionPerformed
+        setPfp(2);
+    }//GEN-LAST:event_pfp2BtnActionPerformed
+
+    private void pfp3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfp3BtnActionPerformed
+        setPfp(3);
+    }//GEN-LAST:event_pfp3BtnActionPerformed
+
+    private void pfp4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfp4BtnActionPerformed
+        setPfp(4);
+    }//GEN-LAST:event_pfp4BtnActionPerformed
+
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.cakeneka.components.DuaSpinner aduanaSalidaSpn;
@@ -1139,6 +1262,7 @@ public class MainWindow extends javax.swing.JFrame {
     private org.cakeneka.components.DuaTextField aduanasPasoPrevistasTf;
     private org.cakeneka.components.DuaTextField aplazamientoPagoTf;
     private javax.swing.JMenu appMenu;
+    private org.cakeneka.components.BackgroundPanel backgroundPanel1;
     private org.cakeneka.components.DuaSpinner bultosDescMercanciasSpn;
     private org.cakeneka.components.DuaSpinner calculoTributosSpn;
     private org.cakeneka.components.DuaTextField certificadosAutorizacionesTf;
@@ -1191,7 +1315,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -1229,13 +1352,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private org.cakeneka.components.DuaTextField listaDeCargaTf;
@@ -1259,6 +1382,11 @@ public class MainWindow extends javax.swing.JFrame {
     private org.cakeneka.components.DuaTextField paisTransaccionTf;
     private org.cakeneka.components.DuaSpinner partidaSpn;
     private org.cakeneka.components.DuaSpinner partidasSpn;
+    private javax.swing.JButton pfp1Btn;
+    private javax.swing.JButton pfp2Btn;
+    private javax.swing.JButton pfp3Btn;
+    private javax.swing.JButton pfp4Btn;
+    private javax.swing.JLabel pfpLabel;
     private org.cakeneka.components.DuaSpinner precioFacturadoSpn;
     private org.cakeneka.components.DuaComboBox regimenCb;
     private org.cakeneka.components.DuaTextField responsableFinancieroTf;

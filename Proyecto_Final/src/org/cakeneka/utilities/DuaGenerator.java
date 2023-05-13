@@ -24,7 +24,7 @@ public final class DuaGenerator implements TextFileReader{
      */
     public void generateDocuments(List<String> data, String outputPath) throws IOException {
         File template = new File(TEMPLATE_PATH);
-        File output = new File(outputPath + "documents.html");
+        File output = new File(outputPath);
         // 1
         String text = readAllText(template);
         
@@ -35,12 +35,18 @@ public final class DuaGenerator implements TextFileReader{
             field = field.replace(">", "&gt;");
             text = text.replace("[" + (i + 1) + "]", field);
         }
-        System.out.println(text);
         
         // 3
         writeText(output, text);
     }
-
+    
+    /**
+     * Devuelve un String con todo el texto que hay en el archivo
+     * que se pasa como parámetro
+     * @param file
+     * @return
+     * @throws IOException 
+     */
     @Override
     public String readAllText(File file) throws IOException {
         String text = "";
@@ -57,6 +63,12 @@ public final class DuaGenerator implements TextFileReader{
         return text;
     }
     
+    /**
+     * Escribe un String en un archivo. (crea el archivo si no existe)
+     * @param output
+     * @param text
+     * @throws IOException 
+     */
     private void writeText(File output, String text) throws IOException {
         output.createNewFile();
         FileWriter writer = new FileWriter(output);

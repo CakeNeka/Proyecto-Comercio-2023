@@ -5,12 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;    
 import java.util.List;
 
+/**
+ * 
+ * @author Neka
+ */
 public class DuaPersistenceManager extends DuaDatabase{
     
     public String[][] getSaveStatesTable() throws SQLException {
         return executeSelect("SELECT * FROM SaveStates");
     }
     
+    /**
+     * Inserta un guardado en la base de datos.
+     * @param fields
+     * @return filas afectadas (1 si todo va bien)
+     * @throws SQLException 
+     */
     public int addSaveState(List<String> fields) throws SQLException {
         Connection con = connect();
         String query = "INSERT INTO SaveStates(fields) VALUES(?)";
@@ -21,6 +31,12 @@ public class DuaPersistenceManager extends DuaDatabase{
         return rowsAffected;
     }
         
+    /**
+     * Transforma una lista de String en un String con los elementos de la lista
+     * separados por el caracter '\'
+     * @param ls
+     * @return 
+     */
     private String listToString(List<String> ls) {
         StringBuilder sb = new StringBuilder();
 
@@ -37,6 +53,12 @@ public class DuaPersistenceManager extends DuaDatabase{
         return sb.toString();
     }
     
+    /**
+     * Elimina un guardado
+     * @param id
+     * @return filas afectadas (1 si todo va bien)
+     * @throws SQLException 
+     */
     public int deleteSaveStateById(int id) throws SQLException {
         Connection con = connect();
         String query = "DELETE FROM SaveStates WHERE id = ?";

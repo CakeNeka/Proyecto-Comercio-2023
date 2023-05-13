@@ -22,6 +22,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
     
     /**
      * Creates new form SaveLoadWindow
+     * @param parent 
      */
     public LoadDataWindow(MainWindow parent) {
         initComponents();
@@ -31,6 +32,10 @@ public class LoadDataWindow extends javax.swing.JFrame{
         database = new DuaPersistenceManager();
     }
     
+    /**
+     * Recoge la información de la tabla SaveStates de la base de datos y actualiza
+     * la lista de guardados.
+     */
     private void updateList(){
         String[][] savesTable;
         try {
@@ -52,6 +57,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
             dispose();
         }
     }
+    
     
     private SaveState createSaveState(String[] params) {
         DateTimeFormatter mySqlTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
@@ -163,7 +169,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         SaveState selectedSave = getSelectedSaveState();
         if (selectedSave != null){
-            parent.updateFields(selectedSave.getFields());
+            parent.updateFields(selectedSave.getFields()); // Actualiza los campos de la ventana principal a los campos del guardado seleccionado
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Antes debes seleccionar un guardado","Atención",JOptionPane.WARNING_MESSAGE);

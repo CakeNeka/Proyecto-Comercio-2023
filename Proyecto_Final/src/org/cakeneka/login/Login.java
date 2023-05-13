@@ -58,6 +58,7 @@ public class Login extends javax.swing.JFrame {
         signUpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
         setBackground(new java.awt.Color(204, 204, 255));
         setForeground(new java.awt.Color(204, 204, 255));
         setResizable(false);
@@ -301,14 +302,14 @@ public class Login extends javax.swing.JFrame {
 
     private boolean isValidUserName() {
         return (!userNameField.getText().isBlank())
-                && userNameField.getText().length() <= 39
+                && userNameField.getText().length() <= 40
                 && userNameField.getText().length() >= 4;
     }
 
     private boolean isValidPassword() {
         String password = new String(passwordField.getPassword());
         return (!passwordField.toString().isBlank())
-                && password.length() <= 127
+                && password.length() <= 128
                 && password.length() >= 8;
     }
 

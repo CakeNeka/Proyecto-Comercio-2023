@@ -3,7 +3,7 @@ package org.cakeneka.components;
 import javax.swing.JComboBox;
 
 /**
- * Extensión de la clase JSpinner que implementa los comportamientos
+ * Extensión de la clase JComboBox que implementa los comportamientos
  * de un campo del dua (obligatoriedad y obtención del valor introducido)
  * @author Neka
  */

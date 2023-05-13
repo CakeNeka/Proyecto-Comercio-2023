@@ -3,10 +3,11 @@ package org.cakeneka.components;
 import javax.swing.JTextField;
 
 public class DuaTextField extends JTextField implements DuaInputField{
-    private boolean required = false;
+    private boolean required;
 
     public DuaTextField() {
         super();
+        required = false;
     }    
     
     @Override

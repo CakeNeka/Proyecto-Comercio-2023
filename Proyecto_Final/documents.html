@@ -1,67 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUA Exportación</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            display: grid;
+            justify-content: center;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        #container {
+            background-color: rgb(96, 96, 96);
+            margin: 40px 0px;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: rgb(255, 255, 255);
+            text-align: center;
+            margin: 10px 0px;
+            padding: 20px;
+        }
+
+        #subcontainer {
+            margin: 20px 0px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 1500px;
+            border-radius: 10px;
+        }
+
+        #subcontainer>div {
+            margin: 10px;
+        }
+
+        #subcontainer>div:hover {
+            border-radius: 10px;
+            transform: scale(1.035);
+            box-shadow: 10px 10px 5px #565656;
+        }
+
+        .typeDataName {
+            font-weight: bold;
+            margin: 10px;
+            padding: 10px;
+            color: rgb(255, 255, 255);
+            border-bottom: 1px solid rgb(255, 255, 255);
+        }
+
+        .text {
+            text-align: justify;
+            border-radius: 10px;
+            background-color: rgb(255, 197, 146);
+            color: rgb(0, 0, 0);
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <p>&lt;h1&gt;ñaslkdfj&lt;/h1&gt;</p>  <!--Aduana-->
-    <p>a</p>  <!--Declaración-->
-    <p>a</p>  <!--Exportador nombre-->
-    <p>a</p>  <!--Exportador dirección-->
-    <p>a</p>  <!--Exportador CIF/EORI-->
-    <p>a</p>  <!--Formularios-->
-    <p>a</p>  <!--Lista de carga-->
-    <p>0</p>  <!--partidas-->
-    <p>0</p>  <!--total bultos-->
-    <p>a</p> <!--Nº Referencia-->
-    <p>a</p> <!--destinatario-->
-    <p>a</p> <!--Responsable financiero-->
-    <p>a</p> <!--Pais primer destino-->
-    <p>a</p> <!--Pais transacción-->
-    <p>a</p> <!--P.A.C.-->
-    <p>a</p> <!--Declarante/Representante-->
-    <p>a</p> <!--Pais de expedición/exportación-->
-    <p>a</p> <!--Cod P.Exped/export-->
-    <p>a</p> <!--Pais de origen-->
-    <p>0</p> <!--Cód pais de destino-->
-    <p>a</p> <!--Paíos de destino-->
-    <p>a</p> <!--Identidad nacionalidad medio transporte a la partida-->
-    <p>0</p> <!--Ctr.-->
-    <p>a</p> <!--Condiciones de entrega-->
-    <p>a</p> <!--Identidad y nacionalidad medio transporte activo en la frontera-->
-    <p>a</p> <!--Divisa e importe total factura-->
-    <p>a</p> <!--Tipo cambio-->
-    <p>0</p> <!--Naturaleza transacc 1-->
-    <p>0</p> <!--Naturaleza transacc 2-->
-    <p>1</p> <!--Modo transporte-->
-    <p>1</p> <!--Modo transporte-->
-    <p>a</p> <!--Lugar Carga-->
-    <p>a</p> <!--Datos financieros y bancarios-->
-    <p>0</p> <!--Aduana de salida-->
-    <p>0</p> <!--Localización de las mercancías-->
-    <p>0</p> <!--Bultos y descripción de las mercancías-->
-    <p>0</p> <!--Partida-->
-    <p>0</p> <!--Codigo de las Mercancias-->
-    <p>a</p> <!--Cod país de origen-->
-    <p>0</p> <!--Masa Bruta-->
-    <p>10</p> <!--Régimen-->
-    <p>0</p> <!--Masa neta-->
-    <p>a</p> <!--Contigente-->
-    <p>a</p> <!--documento de cargo/precedente-->
-    <p>a</p> <!--Unidades suplementarias-->
-    <p>0</p> <!--Precio facturado-->
-    <p>a</p> <!--Indicaciones especiales/documentos presentados/Certificaciones y autorizaciones-->
-    <p>a</p> <!--Valor estadístico-->
-    <p>0</p> <!--Calculo de los tributos-->
-    <p>a</p> <!--Aplazamiento de pago-->
-    <p>a</p> <!--Identificación depósito-->
-    <p>a</p> <!--Obligado principal-->
-    <p>a</p> <!--Aduanas de paso previstas-->
-    <p>a</p> <!--Garantía-->
-    <p>a</p> <!--Aduana de destino(y país)-->
-    <p>a</p> <!--Lugar y fecha-->
+
+    <div id="container">
+        <h1>Exportación DUA</h1>
+        <div id="subcontainer">
+            <div>
+                <p class="typeDataName">Aduana de exportación e impotación</p> <!--Aduana-->
+                <p class="text">Aduana</p>
+            </div>
+            <div>
+                <p class="typeDataName">Declaración</p> <!--Declaración-->
+                <p class="text">Declaración</p>
+            </div>
+            <div>
+                <p class="typeDataName">Exportador (Nombre)</p> <!--Exportador nombre-->
+                <p class="text">Chinchus Merindus Maximus</p>
+            </div>
+            <div>
+                <p class="typeDataName">Exportador (Dirección)</p> <!--Exportador dirección-->
+                <p class="text">Dirección</p>
+            </div>
+            <div>
+                <p class="typeDataName">Exportador (CIF/EORI)</p> <!--Exportador CIF/EORI-->
+                <p class="text">CIF</p>
+            </div>
+            <div>
+                <p class="typeDataName">Formularios</p> <!--Formularios-->
+                <p class="text">Formu</p>
+            </div>
+            <div>
+                <p class="typeDataName">Lista de carga</p> <!--Lista de carga-->
+                <p class="text">Lista carga</p>
+            </div>
+            <div>
+                <p class="typeDataName">Partidas</p> <!--partidas-->
+                <p class="text">2</p>
+            </div>
+            <div>
+                <p class="typeDataName">Total bultos</p> <!--total bultos-->
+                <p class="text">2</p>
+            </div>
+            <div>
+                <p class="typeDataName">Nº Referencia</p> <!--Nº Referencia-->
+                <p class="text">ref</p>
+            </div>
+            <div>
+                <p class="typeDataName">Destinatario</p> <!--destinatario-->
+                <p class="text">dest</p>
+            </div>
+            <div>
+                <p class="typeDataName">Responsable financiero</p> <!--Responsable financiero-->
+                <p class="text">respon finan</p>
+            </div>
+            <div>
+                <p class="typeDataName">País (primer destino)</p> <!--Pais primer destino-->
+                <p class="text">pais prime</p>
+            </div>
+            <div>
+                <p class="typeDataName">País (transacción)</p> <!--Pais transacción-->
+                <p class="text">pais tran</p>
+            </div>
+            <div>
+                <p class="typeDataName">P.A.C</p> <!--P.A.C.-->
+                <p class="text">pac</p>
+            </div>
+            <div>
+                <p class="typeDataName">Declarante/Representante</p> <!--Declarante/Representante-->
+                <p class="text">delcar</p>
+            </div>
+            <div>
+                <p class="typeDataName">País de expedición/exportación</p> <!--Pais de expedición/exportación-->
+                <p class="text">exped expor</p>
+            </div>
+            <div>
+                <p class="typeDataName">Código País Expedición/Exportación</p> <!--Cod P.Exped/export-->
+                <p class="text">exped expor cod</p>
+            </div>
+            <div>
+                <p class="typeDataName">País de origen</p> <!--Pais de origen-->
+                <p class="text">Pais de Origne</p>
+            </div>
+            <div>
+                <p class="typeDataName">Código país de destino</p> <!--Cód pais de destino-->
+                <p class="text">234</p>
+            </div>
+            <div>
+                <p class="typeDataName">País de destino</p> <!--País de destino-->
+                <p class="text">Polonia</p>
+            </div>
+            <div>
+                <p class="typeDataName">Identidad y nacionalidad medio transporte a la partida</p>
+                <!--Identidad nacionalidad medio transporte a la partida-->
+                <p class="text">Iden nacion med trans partida</p>
+            </div>
+            <div>
+                <p class="typeDataName">CTR</p> <!--Ctr.-->
+                <p class="text">1</p>
+            </div>
+            <div>
+                <p class="typeDataName">Condiciones de entrega</p> <!--Condiciones de entrega-->
+                <p class="text">condis</p>
+            </div>
+            <div>
+                <p class="typeDataName">Identidad y nacionalidad medio transporte activo en la frontera</p>
+                <!--Identidad y nacionalidad medio transporte activo en la frontera-->
+                <p class="text">identi nacio</p>
+            </div>
+            <div>
+                <p class="typeDataName">Divisa e importe total factura</p> <!--Divisa e importe total factura-->
+                <p class="text">divisa</p>
+            </div>
+            <div>
+                <p class="typeDataName">Tipo cambio</p> <!--Tipo cambio-->
+                <p class="text">tipoCambio</p>
+            </div>
+            <div>
+                <p class="typeDataName">Naturaleza transacción (1)</p> <!--Naturaleza transacc 1-->
+                <p class="text">6</p>
+            </div>
+            <div>
+                <p class="typeDataName">Naturaleza transacción (2)</p> <!--Naturaleza transacc 2-->
+                <p class="text">-5</p>
+            </div>
+            <div>
+                <p class="typeDataName">Modo transporte</p> <!--Modo transporte-->
+                <p class="text">4</p>
+            </div>
+            <div>
+                <p class="typeDataName">Modo transporte</p> <!--Modo transporte-->
+                <p class="text">4</p>
+            </div>
+            <div>
+                <p class="typeDataName">Lugar de carga</p> <!--Lugar Carga-->
+                <p class="text">lugare di carga</p>
+            </div>
+            <div>
+                <p class="typeDataName">Datos financieros y bancarios</p> <!--Datos financieros y bancarios-->
+                <p class="text">datos financieros</p>
+            </div>
+            <div>
+                <p class="typeDataName">Aduana de salida</p> <!--Aduana de salida-->
+                <p class="text">-3</p>
+            </div>
+            <div>
+                <p class="typeDataName">Localización de las mercancias</p> <!--Localización de las mercancías-->
+                <p class="text">-5</p>
+            </div>
+            <div>
+                <p class="typeDataName">Bultos y descripción de las mercancias</p>
+                <!--Bultos y descripción de las mercancías-->
+                <p class="text">2</p>
+            </div>
+            <div>
+                <p class="typeDataName">Partida</p> <!--Partida-->
+                <p class="text">8</p>
+            </div>
+            <div>
+                <p class="typeDataName">Código de las mercancias</p> <!--Codigo de las Mercancias-->
+                <p class="text">-11</p>
+            </div>
+            <div>
+                <p class="typeDataName">Código país de origen</p> <!--Cod país de origen-->
+                <p class="text">Cod pais origen</p>
+            </div>
+            <div>
+                <p class="typeDataName">Masa bruta (kg)</p> <!--Masa Bruta-->
+                <p class="text">7</p>
+            </div>
+            <div>
+                <p class="typeDataName">Régimen</p> <!--Régimen-->
+                <p class="text">24</p>
+            </div>
+            <div>
+                <p class="typeDataName">Masa neta (kg)</p> <!--Masa neta-->
+                <p class="text">0</p>
+            </div>
+            <div>
+                <p class="typeDataName">Contigente</p> <!--Contigente-->
+                <p class="text">contin</p>
+            </div>
+            <div>
+                <p class="typeDataName">Documento de cargo/precendente</p> <!--documento de cargo/precedente-->
+                <p class="text">doc car</p>
+            </div>
+            <div>
+                <p class="typeDataName">Unidades suplementarias</p> <!--Unidades suplementarias-->
+                <p class="text">uds suple</p>
+            </div>
+            <div>
+                <p class="typeDataName">Precio facturado</p> <!--Precio facturado-->
+                <p class="text">0</p>
+            </div>
+            <div>
+                <p class="typeDataName">Indicaciones especiales/Documentos presentados/Certificados y autorizaciones</p>
+                <!--Indicaciones especiales/documentos presentados/Certificaciones y autorizaciones-->
+                <p class="text">certis autos</p>
+            </div>
+            <div>
+                <p class="typeDataName">Valor estadístico</p> <!--Valor estadístico-->
+                <p class="text">estadis</p>
+            </div>
+            <div>
+                <p class="typeDataName">Cálculo de los tributos</p> <!--Calculo de los tributos-->
+                <p class="text">4</p>
+            </div>
+            <div>
+                <p class="typeDataName">Aplazamiento de pago</p> <!--Aplazamiento de pago-->
+                <p class="text">aplazamiento</p>
+            </div>
+            <div>
+                <p class="typeDataName">Identificación depósito</p> <!--Identificación depósito-->
+                <p class="text">identi</p>
+            </div>
+            <div>
+                <p class="typeDataName">Obligado principal</p> <!--Obligado principal-->
+                <p class="text">obligado princi</p>
+            </div>
+            <div>
+                <p class="typeDataName">Aduanas de paso previstas (y país)</p> <!--Aduanas de paso previstas-->
+                <p class="text">aduanas de paso previstas</p>
+            </div>
+            <div>
+                <p class="typeDataName">Garantía</p> <!--Garantía-->
+                <p class="text">garantia</p>
+            </div>
+            <div>
+                <p class="typeDataName">Aduana de destino (y país)</p> <!--Aduana de destino(y país)-->
+                <p class="text">aduana destino</p>
+            </div>
+            <div>
+                <p class="typeDataName">Lugar y fecha</p> <!--Lugar y fecha-->
+                <p class="text">lugar y fecha</p>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

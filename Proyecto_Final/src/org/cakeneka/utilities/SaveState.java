@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Una instancia de esta clase contiene los mismos datos que una 
+ * fila de la columna savestates en la base de datos.
+ * 
+ * @author Neka
+ */
 public class SaveState implements Comparable<SaveState>{
     private int id;
     private LocalDateTime dateCreated;
@@ -19,8 +25,6 @@ public class SaveState implements Comparable<SaveState>{
     public String toString() {
         return "SaveState " + id + " (" + getFormattedDateCreated() + ")";
     }
-    
-    
     
     @Override
     public int compareTo(SaveState o) {

@@ -9,12 +9,23 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Implementa el método connect() y permite ejecutar un SELECT
+ * @author Neka
+ */
 public class DuaDatabase extends DatabaseConnection{
     
     public DuaDatabase() {
         super("proyectodua");
     }
     
+    /**
+     * Ejecuta un SELECT y devuelve un array bidimensional igual a la 
+     * tabla sql (solo con los datos, sin cabecera)
+     * @param query
+     * @return
+     * @throws SQLException 
+     */
     protected String[][] executeSelect(String query) throws SQLException {
         
         Connection connection = connect();
@@ -41,6 +52,11 @@ public class DuaDatabase extends DatabaseConnection{
         return table;
     }
     
+    /**
+     * Realiza la conexión con la base de datos
+     * @return
+     * @throws SQLException 
+     */
     @Override
     protected Connection connect() throws SQLException {
         Connection con;
