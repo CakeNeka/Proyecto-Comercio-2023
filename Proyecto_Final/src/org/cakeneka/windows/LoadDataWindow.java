@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 public class LoadDataWindow extends javax.swing.JFrame{
     
-    private MainWindow parent;
+    private MainWindow mainWindow;
     List<SaveState> saveStates;
     DuaPersistenceManager database;
     
@@ -26,8 +26,8 @@ public class LoadDataWindow extends javax.swing.JFrame{
      */
     public LoadDataWindow(MainWindow parent) {
         initComponents();
-        this.parent = parent;
-        this.setLocationRelativeTo(parent);
+        this.mainWindow = parent;
+        setLocationRelativeTo(parent);
         saveStates = new ArrayList<>();
         database = new DuaPersistenceManager();
     }
@@ -42,8 +42,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
             savesTable = database.getSaveStatesTable();
             saveStates.clear();
             for (int i = 0; i < savesTable.length; i++) {
-                SaveState saveState = createSaveState(savesTable[i]);
-                saveStates.add(saveState);
+                saveStates.add(createSaveState(savesTable[i]));
             }
             saveStates.sort(Comparator.reverseOrder());
             
@@ -87,6 +86,7 @@ public class LoadDataWindow extends javax.swing.JFrame{
         savesJList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -169,13 +169,13 @@ public class LoadDataWindow extends javax.swing.JFrame{
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         SaveState selectedSave = getSelectedSaveState();
         if (selectedSave != null){
-            parent.updateFields(selectedSave.getFields()); // Actualiza los campos de la ventana principal a los campos del guardado seleccionado
+            mainWindow.updateFields(selectedSave.getFields()); // Actualiza los campos de la ventana principal a los campos del guardado seleccionado
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Antes debes seleccionar un guardado","Atención",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_loadBtnActionPerformed
-
+    
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         SaveState selectedSave = getSelectedSaveState();
         try {

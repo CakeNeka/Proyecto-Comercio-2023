@@ -1,10 +1,8 @@
 package org.cakeneka.components;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -13,15 +11,12 @@ import javax.swing.JPanel;
  * @author Neka
  */
 public class BackgroundPanel extends JPanel{
-    private final String imagePath = "src/org/cakeneka/resources/gradient.png";
-    private BufferedImage backgroundImage;
+    private final String BACKGROUND_PATH = "/org/cakeneka/resources/gradient.png";
+    private Image backgroundImage;
     
     public BackgroundPanel(){
-        try {
-            backgroundImage = ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        backgroundImage = new ImageIcon(getClass().getResource(BACKGROUND_PATH)).getImage();
+
     }
     
     @Override

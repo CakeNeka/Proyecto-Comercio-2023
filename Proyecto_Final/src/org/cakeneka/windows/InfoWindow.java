@@ -38,7 +38,6 @@ public class InfoWindow extends javax.swing.JFrame  {
         clearLabels();
         this.parent = parent;
         setLocationRelativeTo(parent);
-        timer.start();
     }
     
     private void update() {
@@ -95,6 +94,9 @@ public class InfoWindow extends javax.swing.JFrame  {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -215,6 +217,11 @@ public class InfoWindow extends javax.swing.JFrame  {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         clearLabels();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        clearLabels();
+        timer.start();
+    }//GEN-LAST:event_formWindowActivated
     
     private void clearLabels(){
         textLabel1.setText("");

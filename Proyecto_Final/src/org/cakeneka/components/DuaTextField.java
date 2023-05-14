@@ -18,7 +18,6 @@ public class DuaTextField extends JTextField implements DuaInputField{
     @Override
     public void setRequired(boolean required) {
         this.required = required;
-        // setText("a");
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Login extends javax.swing.JFrame {
             Class.forName(JDBC_DRIVER);
             connection = (com.mysql.jdbc.Connection) DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException | ClassNotFoundException se) {
-            se.getMessage();
+            JOptionPane.showMessageDialog(this, "Se ha producido un error durante la operación."); 
         }
     }
 
@@ -179,7 +179,9 @@ public class Login extends javax.swing.JFrame {
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         String password = new String(passwordField.getPassword());
         connect();
-        if (!doesUserExist()) {
+        if (connection == null) {
+            JOptionPane.showMessageDialog(this, "No se ha podido conectar.");
+        } else if (!doesUserExist()) {
             if (validateFields()) {
                 executeInsertQuery();
 
@@ -212,7 +214,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Se ha producido un error durante la operación.");
         }
         return check;
     }
@@ -232,14 +234,16 @@ public class Login extends javax.swing.JFrame {
             }
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Se ha producido un error durante la operación.");
         }
     }
 
 
     private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
         connect();
-        if (validateCredentials()) {
+        if (connection == null) {
+            JOptionPane.showMessageDialog(this, "No se ha podido conectar.");
+        } else if (validateCredentials()) {
             dispose();
             MainWindow mainWindow = new MainWindow(userNameField.getText());
             mainWindow.setVisible(true);
@@ -264,7 +268,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Se ha producido un error durante la operación.");
         }
         return check;
     }
@@ -282,7 +286,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Se ha producido un error durante la operación.");
         }
         return check;
     }

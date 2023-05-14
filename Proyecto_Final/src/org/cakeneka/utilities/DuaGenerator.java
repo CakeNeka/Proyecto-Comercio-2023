@@ -56,7 +56,6 @@ public final class DuaGenerator implements TextFileReader{
         String linea = bufferedReader.readLine();
         while (linea != null) {
             text += linea + '\n';
-            System.out.println(linea); //TODO Eliminar
             linea = bufferedReader.readLine();
         }
         bufferedReader.close();
@@ -70,7 +69,7 @@ public final class DuaGenerator implements TextFileReader{
      * @throws IOException 
      */
     private void writeText(File output, String text) throws IOException {
-        output.createNewFile();
+        output.createNewFile(); // Crea el archivo si no existe
         FileWriter writer = new FileWriter(output);
         BufferedWriter bWriter = new BufferedWriter(writer);
         bWriter.write(text);

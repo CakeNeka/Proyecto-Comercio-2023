@@ -18,9 +18,12 @@ public class MainWindow extends javax.swing.JFrame {
     
     private static final String DOCUMENTS_OUTPUT_PATH = "documents.html";
     
-    private DuaPersistenceManager database;
-    private List<DuaInputField> inputFields;
+    private LoadDataWindow loadWindow;
+    private InfoWindow infoWindow;
+    
+    private List<DuaInputField> inputFields;    // List con todos los campos (textfield, jcombobox, jspinner)
     private DuaGenerator duaGenerator;
+    private DuaPersistenceManager database;
     private String userName;
     /**
      * Creates new form MainWindow
@@ -34,17 +37,21 @@ public class MainWindow extends javax.swing.JFrame {
         this.userName = userName;
     
         // Llamada a los métodos de inicialización
-        initComponents();
-        addInputFields();    
-        setRequiredInputFields(); // Añade todos los campos de entrada de datos a la lista inputFields
+        initComponents();    // Código generado
+        addInputFields();    // Añade todos los campos de entrada de datos a la lista inputFields
+        setRequiredInputFields(); 
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);  // Aumenta velocidad vertical de la barra de desplazamiento
         setUserNameLabel(userName);
         setLocationRelativeTo(null); // Para que la ventana aparezca centrada
+        
+        // Establecer el icono de la ventana
+        ImageIcon icon = new ImageIcon(getClass().getResource("/org/cakeneka/resources/pfp_1.png"));
+        setIconImage(icon.getImage());
     }
      
     /**
      * Establece el nombre que se mostrará bajo el texto 'Conectado como:'
-     * Añade ... si el nombre es demasiado largo
+     * Añade... si el nombre es demasiado largo
      * @param name nombre del usuario
      */
     private void setUserNameLabel(String name) {
@@ -142,8 +149,8 @@ public class MainWindow extends javax.swing.JFrame {
      * @param i índice de la foto de perfil
      */
     private void setPfp(int i) {
-        String pfpPath = "src/org/cakeneka/resources/pfp_" + i + ".png";
-        ImageIcon newIcon = new ImageIcon(pfpPath);
+        String pfpPath = "/org/cakeneka/resources/pfp_" + i + ".png";
+        ImageIcon newIcon = new ImageIcon(getClass().getResource(pfpPath));
         pfpLabel.setIcon(newIcon);
     }
     
@@ -155,6 +162,11 @@ public class MainWindow extends javax.swing.JFrame {
         List<String> values = new ArrayList<>();
         inputFields.stream().forEach(i -> values.add(i.getField()));
         return values;
+        /*
+        for (DuaInputField inputField : inputFields) {
+            values.add(inputField.getField());
+        }
+        */
     }
     
     /**
@@ -163,7 +175,6 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private boolean validateFields() {        
         return inputFields.stream().noneMatch(i -> i.isRequired() && (i.getField() == null || i.getField().isEmpty()));
-        
         /* 
         CÓDIGO EQUIVALENTE
         for (DuaInputField inputField : inputFields) {
@@ -185,7 +196,6 @@ public class MainWindow extends javax.swing.JFrame {
     public void updateFields(List<String> ls){
         if (ls.size() == inputFields.size()) {
             for (int i = 0; i < inputFields.size(); i++) {
-                System.out.println(ls.get(i));
                 inputFields.get(i).setField(ls.get(i));
             }
         }
@@ -1202,8 +1212,9 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
-        LoadDataWindow slw = new LoadDataWindow(this);
-        slw.setVisible(true);
+        if (loadWindow == null)
+            loadWindow = new LoadDataWindow(this);
+        loadWindow.setVisible(true);
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
@@ -1218,8 +1229,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
-        InfoWindow iw = new InfoWindow(this);
-        iw.setVisible(true);
+        if (infoWindow == null)
+            infoWindow = new InfoWindow(this);
+        infoWindow.setVisible(true);
     }//GEN-LAST:event_infoMenuItemActionPerformed
 
     private void generateDocumentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDocumentationBtnActionPerformed
@@ -1227,8 +1239,9 @@ public class MainWindow extends javax.swing.JFrame {
         if (validateFields()) {
             try {
                 duaGenerator.generateDocuments(stringFields, DOCUMENTS_OUTPUT_PATH);    // Generar documento html
-                File initialDirectory = new File(DOCUMENTS_OUTPUT_PATH);            
-                Desktop.getDesktop().open(initialDirectory);                                     // Abrir documento html
+                
+                File htmlDua = new File(DOCUMENTS_OUTPUT_PATH);            
+                Desktop.getDesktop().open(htmlDua);                                     // Abrir documento html
             } catch (IOException ex) {
                JOptionPane.showMessageDialog(this, "Se ha producido un error al generar la documentación", "Error", JOptionPane.ERROR_MESSAGE);
             }
